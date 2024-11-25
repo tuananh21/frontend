@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import $ from "jquery";
+import "owl.carousel";
+
 import "../assets/css/bootstrap.min.css";
 import "../assets/css/all-fontawesome.min.css";
 import "../assets/css/animate.min.css";
@@ -7,6 +10,7 @@ import "../assets/css/magnific-popup.min.css";
 import "../assets/css/owl.carousel.min.css";
 import "../assets/css/nice-select.min.css";
 import "../assets/css/style.css";
+import "../assets/js/main.js";
 import Header from "./Header";
 import Footer from "./Footer";
 

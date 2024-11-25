@@ -194,7 +194,7 @@ function Header() {
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-lg-5">
                   <li className="nav-item dropdown">
                     <Link
-                      className="nav-link active"
+                      className="nav-link"
                       href="#"
                       data-bs-toggle="dropdown"
                     >
