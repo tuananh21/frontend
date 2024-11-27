@@ -49,9 +49,9 @@ function UserProfile() {
               <h4 className="breadcrumb-title">My Profile</h4>
               <ul className="breadcrumb-menu">
                 <li>
-                  <a href="index.html">
+                  <Link href="index.html">
                     <i className="far fa-home" /> Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="active">My Profile</li>
               </ul>
@@ -75,80 +75,75 @@ function UserProfile() {
                     </div>
                     <h5>Antoni Jonson</h5>
                     <p>
-                      <a
+                      <Link
                         href="https://live.themewild.com/cdn-cgi/l/email-protection"
                         className="__cf_email__"
                         data-cfemail="8aebe4fee5e4e3caeff2ebe7fae6efa4e9e5e7"
                       >
                         [email&nbsp;protected]
-                      </a>
+                      </Link>
                     </p>
                   </div>
                   <ul className="sidebar-list">
                     <li>
-                      <a href="user-dashboard.html">
+                      <Link to="/dashboard">
                         <i className="far fa-gauge-high" /> Dashboard
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="active" href="user-profile.html">
+                      <Link className="active" href="user-profile.html">
                         <i className="far fa-user" /> My Profile
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="order-list.html">
+                      <Link href="order-list.html">
                         <i className="far fa-shopping-bag" /> My Order List{" "}
                         <span className="badge badge-danger">02</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="wishlist.html">
+                      <Link to="/wishlish">
                         <i className="far fa-heart" /> My Wishlist{" "}
                         <span className="badge badge-danger">02</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="address-list.html">
+                      <Link href="address-list.html">
                         <i className="far fa-location-dot" /> Address List
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="support-ticket.html">
+                      <Link href="support-ticket.html">
                         <i className="far fa-headset" /> Support Tickets{" "}
                         <span className="badge badge-danger">02</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="track-order.html">
+                      <Link href="track-order.html">
                         <i className="far fa-map-location-dot" /> Track My Order
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="payment-method.html">
+                      <Link href="payment-method.html">
                         <i className="far fa-wallet" /> Payment Methods
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="user-notification.html">
+                      <Link href="user-notification.html">
                         <i className="far fa-bell" /> Notification{" "}
                         <span className="badge badge-danger">02</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="user-message.html">
+                      <Link to="/message">
                         <i className="far fa-envelope" /> Messages{" "}
                         <span className="badge badge-danger">02</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="user-setting.html">
-                        <i className="far fa-gear" /> Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
+                      <Link href="#">
                         <i className="far fa-sign-out" /> Logout
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -283,9 +278,9 @@ function UserProfile() {
       <Footer />
       {/* footer area end */}
       {/* scroll-top */}
-      <a href="#" id="scroll-top">
+      <Link href="#" id="scroll-top">
         <i className="far fa-arrow-up-from-arc" />
-      </a>
+      </Link>
       {/* scroll-top end */}
       {/* js */}
     </>

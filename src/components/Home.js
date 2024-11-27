@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import $ from "jquery";
-import "owl.carousel";
+
 
 import "../assets/css/bootstrap.min.css";
 import "../assets/css/all-fontawesome.min.css";
@@ -10,13 +9,13 @@ import "../assets/css/magnific-popup.min.css";
 import "../assets/css/owl.carousel.min.css";
 import "../assets/css/nice-select.min.css";
 import "../assets/css/style.css";
-import "../assets/js/main.js";
 import Header from "./Header";
 import Footer from "./Footer";
 
 import logo from "../assets/img/logo/logo.png";
 
 import megabanner from "../assets/img/banner/mega-menu-banner.jpg";
+import bigbanner from "../assets/img/banner/big-banner.jpg"
 
 import slider1 from "../assets/img/hero/slider-1.jpg";
 
@@ -35,6 +34,8 @@ import product12 from "../assets/img/product/12.png";
 import product13 from "../assets/img/product/13.png";
 import product14 from "../assets/img/product/14.png";
 import product15 from "../assets/img/product/15.png";
+import product16 from "../assets/img/product/16.png";
+import product24 from "../assets/img/product/24.png";
 
 import category1 from "../assets/img/category/01.png";
 import category2 from "../assets/img/category/02.png";
@@ -45,6 +46,7 @@ import category6 from "../assets/img/category/06.png";
 import category7 from "../assets/img/category/07.png";
 import category8 from "../assets/img/category/08.png";
 import category9 from "../assets/img/category/09.png";
+import { useEffect } from "react";
 
 
 
@@ -52,6 +54,7 @@ function Home() {
   
   return (
     <>
+     
       {/* header area */}
       <Header />
       {/* header area end */}
@@ -820,7 +823,7 @@ function Home() {
             <div
               className="banner-wrap"
               style={{
-                backgroundImage: "url(assets/img/banner/big-banner.jpg)",
+                backgroundImage: `url(${bigbanner})`,
               }}
             >
               <div className="row">
@@ -844,395 +847,7 @@ function Home() {
           </div>
         </div>
         {/* big banner end */}
-        {/* featured item */}
-        <div className="product-area pt-100">
-          <div className="container">
-            <div className="row">
-              <div className="col-12 wow fadeInDown" data-wow-delay=".25s">
-                <div className="site-heading-inline">
-                  <h2 className="site-title">Featured Items</h2>
-                  <Link href="#">
-                    View More <i className="fas fa-angle-double-right" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div
-              className="product-wrap item-big item-2 wow fadeInUp"
-              data-wow-delay=".25s"
-            >
-              <div className="product-slider2 owl-carousel owl-theme">
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b1.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b2.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b4.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b5.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b7.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="product-item">
-                  <div className="product-img">
-                    <span className="type new">New</span>
-                    <Link href="shop-single.html">
-                      <img src="assets/img/product/b10.png" alt="" />
-                    </Link>
-                    <div className="product-action-wrap">
-                      <div className="product-action">
-                        <Link
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quickview"
-                          data-tooltip="tooltip"
-                          title="Quick View"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Wishlist"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                        <Link
-                          href="#"
-                          data-tooltip="tooltip"
-                          title="Add To Compare"
-                        >
-                          <i className="far fa-arrows-repeat" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h3 className="product-title">
-                      <Link href="shop-single.html">Simple Denim Chair</Link>
-                    </h3>
-                    <div className="product-rate">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </div>
-                    <div className="product-bottom">
-                      <div className="product-price">
-                        <span>$250.00</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="product-cart-btn"
-                        data-bs-placement="left"
-                        data-tooltip="tooltip"
-                        title="Add To Cart"
-                      >
-                        <i className="far fa-shopping-bag" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* featured item end*/}
+        
         {/* popular item */}
         <div className="product-area py-100">
           <div className="container">
@@ -1455,7 +1070,7 @@ function Home() {
                       <div className="product-img">
                         <span className="type oos">Out Of Stock</span>
                         <Link href="shop-single.html">
-                          <img src="assets/img/product/24.png" alt="" />
+                          <img src={product24} alt="" />
                         </Link>
                         <div className="product-action-wrap">
                           <div className="product-action">
@@ -1737,7 +1352,7 @@ function Home() {
                       <div className="product-img">
                         <span className="type hot">Hot</span>
                         <Link href="shop-single.html">
-                          <img src="assets/img/product/11.png" alt="" />
+                          <img src={product11} alt="" />
                         </Link>
                         <div className="product-action-wrap">
                           <div className="product-action">
@@ -1805,7 +1420,7 @@ function Home() {
                       <div className="product-img">
                         <span className="type oos">Out Of Stock</span>
                         <Link href="shop-single.html">
-                          <img src="assets/img/product/12.png" alt="" />
+                          <img src={product12} alt="" />
                         </Link>
                         <div className="product-action-wrap">
                           <div className="product-action">
@@ -1873,7 +1488,7 @@ function Home() {
                       <div className="product-img">
                         <span className="type discount">10% Off</span>
                         <Link href="shop-single.html">
-                          <img src="assets/img/product/13.png" alt="" />
+                          <img src={product13} alt="" />
                         </Link>
                         <div className="product-action-wrap">
                           <div className="product-action">
@@ -1941,7 +1556,7 @@ function Home() {
                     <div className="product-item">
                       <div className="product-img">
                         <Link href="shop-single.html">
-                          <img src="assets/img/product/16.png" alt="" />
+                          <img src={product16} alt="" />
                         </Link>
                         <div className="product-action-wrap">
                           <div className="product-action">
@@ -2872,7 +2487,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/02.png" alt="#" />
+                        <img src={product2} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -2904,7 +2519,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/03.png" alt="#" />
+                        <img src={product3} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -2941,7 +2556,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/04.png" alt="#" />
+                        <img src={product4} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -2973,7 +2588,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/05.png" alt="#" />
+                        <img src={product5} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -3005,7 +2620,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/06.png" alt="#" />
+                        <img src={product6} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -3042,7 +2657,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/07.png" alt="#" />
+                        <img src={product7} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -3074,7 +2689,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/08.png" alt="#" />
+                        <img src={product8} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -3106,7 +2721,7 @@ function Home() {
                   <div className="product-list-item">
                     <div className="product-list-img">
                       <Link href="shop-single.html">
-                        <img src="assets/img/product/09.png" alt="#" />
+                        <img src={product9} alt="#" />
                       </Link>
                     </div>
                     <div className="product-list-content">
@@ -3151,99 +2766,6 @@ function Home() {
         <i className="far fa-arrow-up-from-arc" />
       </Link>
       {/* scroll-top end */}
-      {/* modal quick shop*/}
-      <div
-        className="modal quickview fade"
-        id="quickview"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabIndex={-1}
-        aria-labelledby="quickview"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-lg modal-dialog-centered"
-          role="document"
-        >
-          <div className="modal-content">
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <i className="far fa-xmark" />
-            </button>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                  <img src="assets/img/product/04.png" alt="#" />
-                </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                  <div className="quickview-content">
-                    <h4 className="quickview-title">Simple Denim Chair</h4>
-                    <div className="quickview-rating">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                      <i className="far fa-star" />
-                      <span className="rating-count">
-                        {" "}
-                        (4 Customer Reviews)
-                      </span>
-                    </div>
-                    <div className="quickview-price">
-                      <h5>
-                        <del>$860</del>
-                        <span>$740</span>
-                      </h5>
-                    </div>
-                    <ul className="quickview-list">
-                      <li>
-                        Brand:<span>Ricordi</span>
-                      </li>
-                      <li>
-                        Category:<span>Living Room</span>
-                      </li>
-                      <li>
-                        Stock:<span className="stock">Available</span>
-                      </li>
-                      <li>
-                        Code:<span>789FGSA</span>
-                      </li>
-                    </ul>
-                    <div className="quickview-cart">
-                      <Link href="#" className="theme-btn">
-                        Add to cart
-                      </Link>
-                    </div>
-                    <div className="quickview-social">
-                      <span>Share:</span>
-                      <Link href="#">
-                        <i className="fab fa-facebook-f" />
-                      </Link>
-                      <Link href="#">
-                        <i className="fab fa-x-twitter" />
-                      </Link>
-                      <Link href="#">
-                        <i className="fab fa-pinterest-p" />
-                      </Link>
-                      <Link href="#">
-                        <i className="fab fa-instagram" />
-                      </Link>
-                      <Link href="#">
-                        <i className="fab fa-linkedin-in" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* modal quick shop end */}
       {/* js */}
     </>
   );

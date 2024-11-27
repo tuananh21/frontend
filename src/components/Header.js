@@ -58,58 +58,6 @@ function Header() {
               <div className="col-12 col-md-6 col-lg-6 col-xl-7">
                 <div className="header-top-right">
                   <ul className="header-top-list">
-                    <li>
-                      <div className="dropdown">
-                        <Link
-                          href="#"
-                          className="dropdown-toggle"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          <i className="far fa-usd" /> USD
-                        </Link>
-                        <div className="dropdown-menu">
-                          <Link className="dropdown-item" href="#">
-                            USD
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            EUR
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            AUD
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            CUD
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="dropdown">
-                        <Link
-                          href="#"
-                          className="dropdown-toggle"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          <i className="far fa-globe-americas" /> EN
-                        </Link>
-                        <div className="dropdown-menu">
-                          <Link className="dropdown-item" href="#">
-                            EN
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            FR
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            DE
-                          </Link>
-                          <Link className="dropdown-item" href="#">
-                            RU
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
                     <li className="social">
                       <div className="header-top-social">
                         <span>Follow Us: </span>
@@ -139,19 +87,16 @@ function Header() {
       <div className="main-navigation">
         <nav className="navbar navbar-expand-lg">
           <div className="container position-relative">
-            <Link className="navbar-brand" href="index.html">
+            <Link className="navbar-brand" to="/">
               <img src={logo} alt="logo" />
             </Link>
             <div className="mobile-menu-right">
               <div className="mobile-menu-btn">
-                <Link href="#" className="nav-right-link search-box-outer">
-                  <i className="far fa-search" />
-                </Link>
                 <Link href="wishlist.html" className="nav-right-link">
                   <i className="far fa-heart" />
                   <span>2</span>
                 </Link>
-                <Link href="shop-cart.html" className="nav-right-link">
+                <Link to="/cart" className="nav-right-link">
                   <i className="far fa-shopping-bag" />
                   <span>5</span>
                 </Link>
@@ -212,170 +157,6 @@ function Header() {
                       href="#"
                       data-bs-toggle="dropdown"
                     >
-                      Pages
-                    </Link>
-                    <ul className="dropdown-menu fade-down">
-                      <li>
-                        <Link className="dropdown-item" to="/about">
-                          About Us
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="brand.html">
-                          Brands
-                        </Link>
-                      </li>
-                      <li className="dropdown-submenu">
-                        <Link
-                          className="dropdown-item dropdown-toggle"
-                          href="#"
-                        >
-                          Category
-                        </Link>
-                        <ul className="dropdown-menu">
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="category.html"
-                            >
-                              Category One
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="category-2.html"
-                            >
-                              Category Two
-                            </Link>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="dropdown-submenu">
-                        <Link
-                          className="dropdown-item dropdown-toggle"
-                          href="#"
-                        >
-                          Authentication
-                        </Link>
-                        <ul className="dropdown-menu">
-                          <li>
-                            <Link className="dropdown-item" to="/login">
-                              Login
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="register.html"
-                            >
-                              Register
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="forgot-password.html"
-                            >
-                              Forgot Password
-                            </Link>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="dropdown-submenu">
-                        <Link
-                          className="dropdown-item dropdown-toggle"
-                          href="#"
-                        >
-                          Extra Pages
-                        </Link>
-                        <ul className="dropdown-menu">
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="coming-soon.html"
-                            >
-                              Coming Soon
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" href="return.html">
-                              Return Policy
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" href="terms.html">
-                              Terms Of Service
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" href="privacy.html">
-                              Privacy Policy
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              href="mail-success.html"
-                            >
-                              Mail Success
-                            </Link>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="team.html">
-                          Our Team
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="affiliate.html">
-                          Affiliate
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="gallery.html">
-                          Our Gallery
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="contact.html">
-                          Contact Us
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="help.html">
-                          Help
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="invoice.html">
-                          Invoices
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="faq.html">
-                          Faq
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="testimonial.html">
-                          Testimonials
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" href="404.html">
-                          404 Error
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      href="#"
-                      data-bs-toggle="dropdown"
-                    >
                       Account
                     </Link>
                     <ul className="dropdown-menu fade-down">
@@ -387,7 +168,7 @@ function Header() {
                       <li>
                         <Link
                           className="dropdown-item"
-                          href="user-profile.html"
+                          to="/profile"
                         >
                           My Profile
                         </Link>
@@ -784,11 +565,6 @@ function Header() {
                 <div className="nav-right">
                   <ul className="nav-right-list">
                     <li>
-                      <Link href="#" className="list-link search-box-outer">
-                        <i className="far fa-search" />
-                      </Link>
-                    </li>
-                    <li>
                       <Link href="wishlist.html" className="list-link">
                         <i className="far fa-heart" />
                         <span>2</span>
@@ -802,7 +578,7 @@ function Header() {
                       <div className="dropdown-cart-menu">
                         <div className="dropdown-cart-header">
                           <span>03 Items</span>
-                          <Link href="shop-cart.html">View Cart</Link>
+                          <Link to="/cart">View Cart</Link>
                         </div>
                         <ul className="dropdown-cart-list">
                           <li>

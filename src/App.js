@@ -9,6 +9,10 @@ import About from "./components/About";
 import UserDashboard from "./components/UserDashboard";
 import UserMessage from "./components/UserMessage";
 import UserNotification from "./components/UserNotification";
+import Wishlist from "./components/Wishlist";
+import UserProfile from "./components/UserProfile";
+import Product from "./components/Product";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -22,7 +26,10 @@ function App() {
       <Route path="/dashboard" element={<UserDashboard />} />
       <Route path="/message" element={<UserMessage />} />
       <Route path="/notification" element={<UserNotification />} />
-      
+      <Route path="/profile" element={<UserProfile />} />
+      <Route path="/product" element={<Product />} />
+      <Route path="/wishlist" element={<Wishlist />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }
