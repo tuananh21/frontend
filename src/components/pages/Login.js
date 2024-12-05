@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-import logo from "../assets/img/logo/logo.png"
-import megabanner from "../assets/img/banner/mega-menu-banner.jpg"
-import breadcrumb1 from "../assets/img/breadcrumb/01.jpg"
+import logo from "../../assets/img/logo/logo.png"
+import megabanner from "../../assets/img/banner/mega-menu-banner.jpg"
+import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg"
 
 function Login() {
   return (

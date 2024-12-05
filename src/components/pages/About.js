@@ -1,32 +1,32 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-import breadcrumb1 from "../assets/img/breadcrumb/01.jpg";
+import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg";
 
-import about1 from "../assets/img/about/01.jpg";
-import about2 from "../assets/img/about/02.jpg";
-import about3 from "../assets/img/about/03.jpg";
+import about1 from "../../assets/img/about/01.jpg";
+import about2 from "../../assets/img/about/02.jpg";
+import about3 from "../../assets/img/about/03.jpg";
 
-import sale from "../assets/img/icon/sale.svg";
-import rate from "../assets/img/icon/rate.svg";
-import employee from "../assets/img/icon/employee.svg";
-import award from "../assets/img/icon/award.svg";
+import sale from "../../assets/img/icon/sale.svg";
+import rate from "../../assets/img/icon/rate.svg";
+import employee from "../../assets/img/icon/employee.svg";
+import award from "../../assets/img/icon/award.svg";
 
-import testimonial1 from "../assets/img/testimonial/01.jpg";
+import testimonial1 from "../../assets/img/testimonial/01.jpg";
 
-import team1 from "../assets/img/team/01.jpg";
-import team2 from "../assets/img/team/02.jpg";
-import team3 from "../assets/img/team/03.jpg";
-import team4 from "../assets/img/team/04.jpg";
+import team1 from "../../assets/img/team/01.jpg";
+import team2 from "../../assets/img/team/02.jpg";
+import team3 from "../../assets/img/team/03.jpg";
+import team4 from "../../assets/img/team/04.jpg";
 
 
 function About() {
@@ -68,7 +68,7 @@ function About() {
               <h4 className="breadcrumb-title">About Us</h4>
               <ul className="breadcrumb-menu">
                 <li>
-                  <Link href="index.html">
+                  <Link to="/">
                     <i className="far fa-home" /> Home
                   </Link>
                 </li>

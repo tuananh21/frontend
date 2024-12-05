@@ -1,18 +1,19 @@
 import React from "react";
-import { Route,Routes } from "react-router-dom";
-import Home from "./components/Home";
-import ShopList from "./components/ShopList";
-import Cart from "./components/Cart";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import About from "./components/About";
-import UserDashboard from "./components/UserDashboard";
-import UserMessage from "./components/UserMessage";
-import UserNotification from "./components/UserNotification";
-import Wishlist from "./components/Wishlist";
-import UserProfile from "./components/UserProfile";
-import Product from "./components/Product";
-import Contact from "./components/Contact";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/pages/Home";
+import ShopList from "./components/pages/ShopList";
+import Cart from "./components/pages/Cart";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import About from "./components/pages/About";
+import UserDashboard from "./components/pages/UserDashboard";
+import UserMessage from "./components/pages/UserMessage";
+import UserNotification from "./components/pages/UserNotification";
+import Wishlist from "./components/pages/Wishlist";
+import UserProfile from "./components/pages/UserProfile";
+import Product from "./components/pages/Product";
+import Contact from "./components/pages/Contact";
+import Checkout from "./components/pages/Checkout";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route path="/product" element={<Product />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Routes>
   );
 }

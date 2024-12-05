@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
-
-import logo from "../assets/img/logo/logo.png"
-
-function UserDashboard() {
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
+function UserNotification() {
   return (
     <>
       {/* header area */}
@@ -48,14 +45,14 @@ function UserDashboard() {
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
-              <h4 className="breadcrumb-title">Dashboard</h4>
+              <h4 className="breadcrumb-title">Notification</h4>
               <ul className="breadcrumb-menu">
                 <li>
                   <Link href="index.html">
                     <i className="far fa-home" /> Home
                   </Link>
                 </li>
-                <li className="active">Dashboard</li>
+                <li className="active">Notification</li>
               </ul>
             </div>
           </div>
@@ -80,7 +77,7 @@ function UserDashboard() {
                       <Link
                         href="https://live.themewild.com/cdn-cgi/l/email-protection"
                         className="__cf_email__"
-                        data-cfemail="33525d475c5d5a73564b525e435f561d505c5e"
+                        data-cfemail="3f5e514b5051567f5a475e524f535a115c5052"
                       >
                         [email&nbsp;protected]
                       </Link>
@@ -88,7 +85,7 @@ function UserDashboard() {
                   </div>
                   <ul className="sidebar-list">
                     <li>
-                      <Link className="active" href="user-dashboard.html">
+                      <Link href="user-dashboard.html">
                         <i className="far fa-gauge-high" /> Dashboard
                       </Link>
                     </li>
@@ -131,7 +128,7 @@ function UserDashboard() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="user-notification.html">
+                      <Link className="active" href="user-notification.html">
                         <i className="far fa-bell" /> Notification{" "}
                         <span className="badge badge-danger">02</span>
                       </Link>
@@ -157,62 +154,17 @@ function UserDashboard() {
               </div>
               <div className="col-lg-9">
                 <div className="user-wrapper">
-                  <div className="user-card">
-                    <h4 className="user-card-title">Summary</h4>
-                    <div className="row">
-                      <div className="col-md-6 col-lg-4">
-                        <div className="dashboard-widget color-1">
-                          <div className="dashboard-widget-info">
-                            <h1>50</h1>
-                            <span>Pending Orders</span>
-                          </div>
-                          <div className="dashboard-widget-icon">
-                            <i className="fal fa-list" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-6 col-lg-4">
-                        <div className="dashboard-widget color-2">
-                          <div className="dashboard-widget-info">
-                            <h1>250</h1>
-                            <span>Completed Orders</span>
-                          </div>
-                          <div className="dashboard-widget-icon">
-                            <i className="fal fa-layer-group" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-6 col-lg-4">
-                        <div className="dashboard-widget color-3">
-                          <div className="dashboard-widget-info">
-                            <h1>$15.80k</h1>
-                            <span>My Balance</span>
-                          </div>
-                          <div className="dashboard-widget-icon">
-                            <i className="fal fa-wallet" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="user-card">
-                        <div className="user-card-header">
-                          <h4 className="user-card-title">Recent Orders</h4>
-                          <div className="user-card-header-right">
-                            <Link href="order-list.html" className="theme-btn">
-                              View All Orders
-                            </Link>
-                          </div>
-                        </div>
+                        <h4 className="user-card-title">Notification</h4>
                         <div className="table-responsive">
                           <table className="table table-borderless text-nowrap">
                             <thead>
                               <tr>
-                                <th>#Order No</th>
-                                <th>Purchased Date</th>
-                                <th>Total</th>
+                                <th>No</th>
+                                <th>Notification</th>
+                                <th>Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                               </tr>
@@ -220,174 +172,181 @@ function UserDashboard() {
                             <tbody>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
+                                  <span className="table-list-code">01.</span>
                                 </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
+                                <td>
+                                  <p>
+                                    There are many variations of passages
+                                    available
+                                  </p>
+                                </td>
+                                <td>Aug 12, 2024</td>
                                 <td>
                                   <span className="badge badge-info">
-                                    Pending
+                                    Unread
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="order-detail.html"
+                                    href="#"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
                                   >
-                                    <i className="far fa-eye" />
+                                    <i className="far fa-eye me-1" /> Mark As
+                                    Read
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
+                                  <span className="table-list-code">02.</span>
                                 </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
                                 <td>
-                                  <span className="badge badge-primary">
-                                    Processing
+                                  <p>
+                                    There are many variations of passages
+                                    available
+                                  </p>
+                                </td>
+                                <td>Aug 12, 2024</td>
+                                <td>
+                                  <span className="badge badge-info">
+                                    Unread
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="order-detail.html"
+                                    href="#"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
                                   >
-                                    <i className="far fa-eye" />
+                                    <i className="far fa-eye me-1" /> Mark As
+                                    Read
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
+                                  <span className="table-list-code">03.</span>
                                 </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
+                                <td>
+                                  <p>
+                                    There are many variations of passages
+                                    available
+                                  </p>
+                                </td>
+                                <td>Aug 12, 2024</td>
                                 <td>
                                   <span className="badge badge-success">
-                                    Completed
+                                    Read
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="order-detail.html"
+                                    href="#"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
                                   >
-                                    <i className="far fa-eye" />
+                                    <i className="far fa-eye-slash me-1" /> Mark
+                                    As Unread
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
+                                  <span className="table-list-code">04.</span>
                                 </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
                                 <td>
-                                  <span className="badge badge-danger">
-                                    Cancelled
+                                  <p>
+                                    There are many variations of passages
+                                    available
+                                  </p>
+                                </td>
+                                <td>Aug 12, 2024</td>
+                                <td>
+                                  <span className="badge badge-info">
+                                    Unread
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="order-detail.html"
+                                    href="#"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
                                   >
-                                    <i className="far fa-eye" />
+                                    <i className="far fa-eye me-1" /> Mark As
+                                    Read
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
+                                  <span className="table-list-code">05.</span>
                                 </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
+                                <td>
+                                  <p>
+                                    There are many variations of passages
+                                    available
+                                  </p>
+                                </td>
+                                <td>Aug 12, 2024</td>
                                 <td>
                                   <span className="badge badge-success">
-                                    Completed
+                                    Read
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="order-detail.html"
+                                    href="#"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
                                   >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
+                                    <i className="far fa-eye-slash me-1" /> Mark
+                                    As Unread
                                   </Link>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
+                          {/* pagination */}
+                          <div className="pagination-area mt-4 mb-3">
+                            <div aria-label="Page navigation example">
+                              <ul className="pagination">
+                                <li className="page-item">
+                                  <Link
+                                    className="page-link"
+                                    href="#"
+                                    aria-label="Previous"
+                                  >
+                                    <span aria-hidden="true">
+                                      <i className="far fa-angle-double-left" />
+                                    </span>
+                                  </Link>
+                                </li>
+                                <li className="page-item active">
+                                  <Link className="page-link" href="#">
+                                    1
+                                  </Link>
+                                </li>
+                                <li className="page-item">
+                                  <Link className="page-link" href="#">
+                                    2
+                                  </Link>
+                                </li>
+                                <li className="page-item">
+                                  <Link className="page-link" href="#">
+                                    3
+                                  </Link>
+                                </li>
+                                <li className="page-item">
+                                  <Link
+                                    className="page-link"
+                                    href="#"
+                                    aria-label="Next"
+                                  >
+                                    <span aria-hidden="true">
+                                      <i className="far fa-angle-double-right" />
+                                    </span>
+                                  </Link>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          {/* pagination end */}
                         </div>
                       </div>
                     </div>
@@ -412,4 +371,4 @@ function UserDashboard() {
   );
 }
 
-export default UserDashboard;
+export default UserNotification;

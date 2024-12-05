@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-import logo from "../assets/img/logo/logo.png";
-import megabanner from "../assets/img/banner/mega-menu-banner.jpg";
-import breadcrumb1 from "../assets/img/breadcrumb/01.jpg";
+import logo from "../../assets/img/logo/logo.png";
+import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -43,50 +42,39 @@ const Register = () => {
     }
 
     try {
+      // Gửi dữ liệu người dùng đến API backend
       const response = await axios.post("http://localhost:8080/api/users", {
-        fullName: formData.fullName,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
+        phone: formData.phone,
         password: formData.password,
       });
 
       if (response.status === 201) {
         alert("Registration successful!");
+        // Reset form sau khi đăng ký thành công
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          password: "",
+          agree: false,
+        });
       }
     } catch (error) {
       console.error("Error registering user:", error);
-      alert("Registration failed. Please try again.");
+      alert(
+        error.response?.data?.message || "Registration failed. Please try again."
+      );
     }
   };
 
-
   return (
     <>
-      {/* header area */}
       <Header />
-      {/* header area end */}
-      {/* popup search */}
-      <div className="search-popup">
-        <button className="close-search">
-          <span className="far fa-times" />
-        </button>
-        <form action="#">
-          <div className="form-group">
-            <input
-              type="search"
-              name="search-field"
-              className="form-control"
-              placeholder="Search Here..."
-              required=""
-            />
-            <button type="submit">
-              <i className="far fa-search" />
-            </button>
-          </div>
-        </form>
-      </div>
-      {/* popup search end */}
       <main className="main">
-        {/* breadcrumb */}
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
@@ -97,17 +85,15 @@ const Register = () => {
               <h4 className="breadcrumb-title">Register</h4>
               <ul className="breadcrumb-menu">
                 <li>
-                  <a href="index.html">
+                  <Link to="/">
                     <i className="far fa-home" /> Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="active">Register</li>
               </ul>
             </div>
           </div>
         </div>
-        {/* breadcrumb end */}
-        {/* register area */}
         <div className="login-area py-100">
           <div className="container">
             <div className="col-md-5 mx-auto">
@@ -153,7 +139,7 @@ const Register = () => {
                   <div className="form-group">
                     <label>Phone Number</label>
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
                       name="phone"
                       placeholder="Phone Number"
@@ -182,7 +168,7 @@ const Register = () => {
                       onChange={handleInputChange}
                     />
                     <label className="form-check-label" htmlFor="agree">
-                      I agree with the <a href="#">Terms Of Service.</a>
+                      I agree with the <Link to="#">Terms Of Service.</Link>
                     </label>
                   </div>
                   <div className="d-flex align-items-center">
@@ -193,42 +179,17 @@ const Register = () => {
                 </form>
                 <div className="login-footer">
                   <p>
-                    Already have an account? <a href="login.html">Login.</a>
+                    Already have an account? <Link to="/login">Login.</Link>
                   </p>
-                  <div className="social-login">
-                    <span className="social-divider">or</span>
-                    <p>Continue with social media</p>
-                    <div className="social-login-list">
-                      <a href="#" className="fb-auth">
-                        <i className="fab fa-facebook-f" /> Facebook
-                      </a>
-                      <a href="#" className="gl-auth">
-                        <i className="fab fa-google" /> Google
-                      </a>
-                      <a href="#" className="tw-auth">
-                        <i className="fab fa-x-twitter" /> Twitter
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* register area end */}
       </main>
-      {/* footer area */}
       <Footer />
-      {/* footer area end */}
-      {/* scroll-top */}
-      <a href="#" id="scroll-top">
-        <i className="far fa-arrow-up-from-arc" />
-      </a>
-      {/* scroll-top end */}
-      {/* js */}
     </>
   );
-}
-
+};
 
 export default Register;

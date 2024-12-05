@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-function UserNotification() {
+function OrderList() {
   return (
     <>
       {/* header area */}
@@ -46,14 +46,14 @@ function UserNotification() {
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
-              <h4 className="breadcrumb-title">Notification</h4>
+              <h4 className="breadcrumb-title">Orders List</h4>
               <ul className="breadcrumb-menu">
                 <li>
                   <Link href="index.html">
                     <i className="far fa-home" /> Home
                   </Link>
                 </li>
-                <li className="active">Notification</li>
+                <li className="active">Orders List</li>
               </ul>
             </div>
           </div>
@@ -78,7 +78,7 @@ function UserNotification() {
                       <Link
                         href="https://live.themewild.com/cdn-cgi/l/email-protection"
                         className="__cf_email__"
-                        data-cfemail="3f5e514b5051567f5a475e524f535a115c5052"
+                        data-cfemail="50313e243f3e39103528313d203c357e333f3d"
                       >
                         [email&nbsp;protected]
                       </Link>
@@ -96,7 +96,7 @@ function UserNotification() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="order-list.html">
+                      <Link className="active" href="order-list.html">
                         <i className="far fa-shopping-bag" /> My Order List{" "}
                         <span className="badge badge-danger">02</span>
                       </Link>
@@ -129,7 +129,7 @@ function UserNotification() {
                       </Link>
                     </li>
                     <li>
-                      <Link className="active" href="user-notification.html">
+                      <Link href="user-notification.html">
                         <i className="far fa-bell" /> Notification{" "}
                         <span className="badge badge-danger">02</span>
                       </Link>
@@ -158,14 +158,37 @@ function UserNotification() {
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="user-card">
-                        <h4 className="user-card-title">Notification</h4>
+                        <div className="user-card-header">
+                          <h4 className="user-card-title">My Orders List</h4>
+                          <div className="user-card-header-right">
+                            <div className="user-card-filter">
+                              <select className="select">
+                                <option value="">Default</option>
+                                <option value={1}>Pending</option>
+                                <option value={2}>Processing</option>
+                                <option value={3}>Cancelled</option>
+                                <option value={4}>Completed</option>
+                              </select>
+                            </div>
+                            <div className="user-card-search">
+                              <div className="form-group">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Search..."
+                                />
+                                <i className="far fa-search" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div className="table-responsive">
                           <table className="table table-borderless text-nowrap">
                             <thead>
                               <tr>
-                                <th>No</th>
-                                <th>Notification</th>
-                                <th>Date</th>
+                                <th>#Order No</th>
+                                <th>Purchased Date</th>
+                                <th>Total</th>
                                 <th>Status</th>
                                 <th>Action</th>
                               </tr>
@@ -173,182 +196,220 @@ function UserNotification() {
                             <tbody>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">01.</span>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
                                 </td>
-                                <td>
-                                  <p>
-                                    There are many variations of passages
-                                    available
-                                  </p>
-                                </td>
-                                <td>Aug 12, 2024</td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
                                 <td>
                                   <span className="badge badge-info">
-                                    Unread
+                                    Pending
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="#"
+                                    href="order-detail.html"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
                                   >
-                                    <i className="far fa-eye me-1" /> Mark As
-                                    Read
+                                    <i className="far fa-eye" />
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">02.</span>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
                                 </td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
                                 <td>
-                                  <p>
-                                    There are many variations of passages
-                                    available
-                                  </p>
-                                </td>
-                                <td>Aug 12, 2024</td>
-                                <td>
-                                  <span className="badge badge-info">
-                                    Unread
+                                  <span className="badge badge-primary">
+                                    Processing
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="#"
+                                    href="order-detail.html"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
                                   >
-                                    <i className="far fa-eye me-1" /> Mark As
-                                    Read
+                                    <i className="far fa-eye" />
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">03.</span>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
                                 </td>
-                                <td>
-                                  <p>
-                                    There are many variations of passages
-                                    available
-                                  </p>
-                                </td>
-                                <td>Aug 12, 2024</td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
                                 <td>
                                   <span className="badge badge-success">
-                                    Read
+                                    Completed
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="#"
+                                    href="order-detail.html"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
                                   >
-                                    <i className="far fa-eye-slash me-1" /> Mark
-                                    As Unread
+                                    <i className="far fa-eye" />
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">04.</span>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
                                 </td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
                                 <td>
-                                  <p>
-                                    There are many variations of passages
-                                    available
-                                  </p>
-                                </td>
-                                <td>Aug 12, 2024</td>
-                                <td>
-                                  <span className="badge badge-info">
-                                    Unread
+                                  <span className="badge badge-danger">
+                                    Cancelled
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="#"
+                                    href="order-detail.html"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
                                   >
-                                    <i className="far fa-eye me-1" /> Mark As
-                                    Read
+                                    <i className="far fa-eye" />
                                   </Link>
                                 </td>
                               </tr>
                               <tr>
                                 <td>
-                                  <span className="table-list-code">05.</span>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
                                 </td>
-                                <td>
-                                  <p>
-                                    There are many variations of passages
-                                    available
-                                  </p>
-                                </td>
-                                <td>Aug 12, 2024</td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
                                 <td>
                                   <span className="badge badge-success">
-                                    Read
+                                    Completed
                                   </span>
                                 </td>
                                 <td>
                                   <Link
-                                    href="#"
+                                    href="order-detail.html"
                                     className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
                                   >
-                                    <i className="far fa-eye-slash me-1" /> Mark
-                                    As Unread
+                                    <i className="far fa-eye" />
+                                  </Link>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
+                                </td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
+                                <td>
+                                  <span className="badge badge-success">
+                                    Completed
+                                  </span>
+                                </td>
+                                <td>
+                                  <Link
+                                    href="order-detail.html"
+                                    className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
+                                  >
+                                    <i className="far fa-eye" />
+                                  </Link>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <span className="table-list-code">
+                                    #28VR5K59
+                                  </span>
+                                </td>
+                                <td>August 20, 2024</td>
+                                <td>$3,650</td>
+                                <td>
+                                  <span className="badge badge-success">
+                                    Completed
+                                  </span>
+                                </td>
+                                <td>
+                                  <Link
+                                    href="order-detail.html"
+                                    className="btn btn-outline-secondary btn-sm rounded-2"
+                                    data-tooltip="tooltip"
+                                    title="Details"
+                                  >
+                                    <i className="far fa-eye" />
                                   </Link>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          {/* pagination */}
-                          <div className="pagination-area mt-4 mb-3">
-                            <div aria-label="Page navigation example">
-                              <ul className="pagination">
-                                <li className="page-item">
-                                  <Link
-                                    className="page-link"
-                                    href="#"
-                                    aria-label="Previous"
-                                  >
-                                    <span aria-hidden="true">
-                                      <i className="far fa-angle-double-left" />
-                                    </span>
-                                  </Link>
-                                </li>
-                                <li className="page-item active">
-                                  <Link className="page-link" href="#">
-                                    1
-                                  </Link>
-                                </li>
-                                <li className="page-item">
-                                  <Link className="page-link" href="#">
-                                    2
-                                  </Link>
-                                </li>
-                                <li className="page-item">
-                                  <Link className="page-link" href="#">
-                                    3
-                                  </Link>
-                                </li>
-                                <li className="page-item">
-                                  <Link
-                                    className="page-link"
-                                    href="#"
-                                    aria-label="Next"
-                                  >
-                                    <span aria-hidden="true">
-                                      <i className="far fa-angle-double-right" />
-                                    </span>
-                                  </Link>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          {/* pagination end */}
                         </div>
+                        {/* pagination */}
+                        <div className="pagination-area mt-4 mb-3">
+                          <div aria-label="Page navigation example">
+                            <ul className="pagination">
+                              <li className="page-item">
+                                <Link
+                                  className="page-link"
+                                  href="#"
+                                  aria-label="Previous"
+                                >
+                                  <span aria-hidden="true">
+                                    <i className="far fa-angle-double-left" />
+                                  </span>
+                                </Link>
+                              </li>
+                              <li className="page-item active">
+                                <Link className="page-link" href="#">
+                                  1
+                                </Link>
+                              </li>
+                              <li className="page-item">
+                                <Link className="page-link" href="#">
+                                  2
+                                </Link>
+                              </li>
+                              <li className="page-item">
+                                <Link className="page-link" href="#">
+                                  3
+                                </Link>
+                              </li>
+                              <li className="page-item">
+                                <Link
+                                  className="page-link"
+                                  href="#"
+                                  aria-label="Next"
+                                >
+                                  <span aria-hidden="true">
+                                    <i className="far fa-angle-double-right" />
+                                  </span>
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        {/* pagination end */}
                       </div>
                     </div>
                   </div>
@@ -372,4 +433,4 @@ function UserNotification() {
   );
 }
 
-export default UserNotification;
+export default OrderList;

@@ -140,7 +140,7 @@ function Header() {
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link"
-                      href="#"
+                      to="/"
                       data-bs-toggle="dropdown"
                     >
                       Home
@@ -662,7 +662,7 @@ function Header() {
                             <span>Total</span>
                             <span className="total-amount">$650.00</span>
                           </div>
-                          <Link href="shop-checkout.html" className="theme-btn">
+                          <Link to="/checkout" className="theme-btn">
                             Checkout
                           </Link>
                         </div>

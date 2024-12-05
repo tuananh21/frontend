@@ -1,16 +1,22 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-function OrderList() {
+import logo from "../../assets/img/logo/logo.png"
+
+import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg"
+
+import account2 from "../../assets/img/account/02.jpg"
+
+function UserDashboard() {
   return (
     <>
       {/* header area */}
@@ -42,18 +48,18 @@ function OrderList() {
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
-            style={{ background: "url(assets/img/breadcrumb/01.jpg)" }}
+            style={{ background: `url(${breadcrumb1})` }}
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
-              <h4 className="breadcrumb-title">Orders List</h4>
+              <h4 className="breadcrumb-title">Dashboard</h4>
               <ul className="breadcrumb-menu">
                 <li>
                   <Link href="index.html">
                     <i className="far fa-home" /> Home
                   </Link>
                 </li>
-                <li className="active">Orders List</li>
+                <li className="active">Dashboard</li>
               </ul>
             </div>
           </div>
@@ -67,7 +73,7 @@ function OrderList() {
                 <div className="sidebar">
                   <div className="sidebar-top">
                     <div className="sidebar-profile-img">
-                      <img src="assets/img/account/02.jpg" alt="" />
+                      <img src={account2} alt="" />
                       <button type="button" className="profile-img-btn">
                         <i className="far fa-camera" />
                       </button>
@@ -78,7 +84,7 @@ function OrderList() {
                       <Link
                         href="https://live.themewild.com/cdn-cgi/l/email-protection"
                         className="__cf_email__"
-                        data-cfemail="50313e243f3e39103528313d203c357e333f3d"
+                        data-cfemail="33525d475c5d5a73564b525e435f561d505c5e"
                       >
                         [email&nbsp;protected]
                       </Link>
@@ -86,7 +92,7 @@ function OrderList() {
                   </div>
                   <ul className="sidebar-list">
                     <li>
-                      <Link href="user-dashboard.html">
+                      <Link className="active" href="user-dashboard.html">
                         <i className="far fa-gauge-high" /> Dashboard
                       </Link>
                     </li>
@@ -96,7 +102,7 @@ function OrderList() {
                       </Link>
                     </li>
                     <li>
-                      <Link className="active" href="order-list.html">
+                      <Link href="order-list.html">
                         <i className="far fa-shopping-bag" /> My Order List{" "}
                         <span className="badge badge-danger">02</span>
                       </Link>
@@ -155,31 +161,53 @@ function OrderList() {
               </div>
               <div className="col-lg-9">
                 <div className="user-wrapper">
+                  <div className="user-card">
+                    <h4 className="user-card-title">Summary</h4>
+                    <div className="row">
+                      <div className="col-md-6 col-lg-4">
+                        <div className="dashboard-widget color-1">
+                          <div className="dashboard-widget-info">
+                            <h1>50</h1>
+                            <span>Pending Orders</span>
+                          </div>
+                          <div className="dashboard-widget-icon">
+                            <i className="fal fa-list" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6 col-lg-4">
+                        <div className="dashboard-widget color-2">
+                          <div className="dashboard-widget-info">
+                            <h1>250</h1>
+                            <span>Completed Orders</span>
+                          </div>
+                          <div className="dashboard-widget-icon">
+                            <i className="fal fa-layer-group" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6 col-lg-4">
+                        <div className="dashboard-widget color-3">
+                          <div className="dashboard-widget-info">
+                            <h1>$15.80k</h1>
+                            <span>My Balance</span>
+                          </div>
+                          <div className="dashboard-widget-icon">
+                            <i className="fal fa-wallet" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="row">
                     <div className="col-lg-12">
                       <div className="user-card">
                         <div className="user-card-header">
-                          <h4 className="user-card-title">My Orders List</h4>
+                          <h4 className="user-card-title">Recent Orders</h4>
                           <div className="user-card-header-right">
-                            <div className="user-card-filter">
-                              <select className="select">
-                                <option value="">Default</option>
-                                <option value={1}>Pending</option>
-                                <option value={2}>Processing</option>
-                                <option value={3}>Cancelled</option>
-                                <option value={4}>Completed</option>
-                              </select>
-                            </div>
-                            <div className="user-card-search">
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Search..."
-                                />
-                                <i className="far fa-search" />
-                              </div>
-                            </div>
+                            <Link href="order-list.html" className="theme-btn">
+                              View All Orders
+                            </Link>
                           </div>
                         </div>
                         <div className="table-responsive">
@@ -365,51 +393,6 @@ function OrderList() {
                             </tbody>
                           </table>
                         </div>
-                        {/* pagination */}
-                        <div className="pagination-area mt-4 mb-3">
-                          <div aria-label="Page navigation example">
-                            <ul className="pagination">
-                              <li className="page-item">
-                                <Link
-                                  className="page-link"
-                                  href="#"
-                                  aria-label="Previous"
-                                >
-                                  <span aria-hidden="true">
-                                    <i className="far fa-angle-double-left" />
-                                  </span>
-                                </Link>
-                              </li>
-                              <li className="page-item active">
-                                <Link className="page-link" href="#">
-                                  1
-                                </Link>
-                              </li>
-                              <li className="page-item">
-                                <Link className="page-link" href="#">
-                                  2
-                                </Link>
-                              </li>
-                              <li className="page-item">
-                                <Link className="page-link" href="#">
-                                  3
-                                </Link>
-                              </li>
-                              <li className="page-item">
-                                <Link
-                                  className="page-link"
-                                  href="#"
-                                  aria-label="Next"
-                                >
-                                  <span aria-hidden="true">
-                                    <i className="far fa-angle-double-right" />
-                                  </span>
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        {/* pagination end */}
                       </div>
                     </div>
                   </div>
@@ -433,4 +416,4 @@ function OrderList() {
   );
 }
 
-export default OrderList;
+export default UserDashboard;

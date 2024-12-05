@@ -1,34 +1,34 @@
 import { Link } from "react-router-dom";
-import "../assets/css/bootstrap.min.css";
-import "../assets/css/all-fontawesome.min.css";
-import "../assets/css/animate.min.css";
-import "../assets/css/jquery-ui.min.css";
-import "../assets/css/magnific-popup.min.css";
-import "../assets/css/owl.carousel.min.css";
-import "../assets/css/nice-select.min.css";
-import "../assets/css/style.css";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../../assets/css/bootstrap.min.css";
+import "../../assets/css/all-fontawesome.min.css";
+import "../../assets/css/animate.min.css";
+import "../../assets/css/jquery-ui.min.css";
+import "../../assets/css/magnific-popup.min.css";
+import "../../assets/css/owl.carousel.min.css";
+import "../../assets/css/nice-select.min.css";
+import "../../assets/css/style.css";
+import Header from "../Header";
+import Footer from "../Footer";
 
-import logo from "../assets/img/logo/logo.png";
+import logo from "../../assets/img/logo/logo.png";
 
-import breadcrumb1 from "../assets/img/breadcrumb/01.jpg";
+import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg";
 
-import product1 from "../assets/img/product/01.png";
-import product2 from "../assets/img/product/02.png";
-import product3 from "../assets/img/product/03.png";
-import product4 from "../assets/img/product/04.png";
-import product5 from "../assets/img/product/05.png";
-import product6 from "../assets/img/product/06.png";
-import product7 from "../assets/img/product/07.png";
-import product8 from "../assets/img/product/08.png";
-import product9 from "../assets/img/product/09.png";
-import product10 from "../assets/img/product/10.png";
-import product11 from "../assets/img/product/11.png";
-import product12 from "../assets/img/product/12.png";
-import product13 from "../assets/img/product/13.png";
-import product14 from "../assets/img/product/14.png";
-import product15 from "../assets/img/product/15.png";
+import product1 from "../../assets/img/product/01.png";
+import product2 from "../../assets/img/product/02.png";
+import product3 from "../../assets/img/product/03.png";
+import product4 from "../../assets/img/product/04.png";
+import product5 from "../../assets/img/product/05.png";
+import product6 from "../../assets/img/product/06.png";
+import product7 from "../../assets/img/product/07.png";
+import product8 from "../../assets/img/product/08.png";
+import product9 from "../../assets/img/product/09.png";
+import product10 from "../../assets/img/product/10.png";
+import product11 from "../../assets/img/product/11.png";
+import product12 from "../../assets/img/product/12.png";
+import product13 from "../../assets/img/product/13.png";
+import product14 from "../../assets/img/product/14.png";
+import product15 from "../../assets/img/product/15.png";
 import { useState } from "react";
 
 function ShopList() {
