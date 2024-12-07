@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/all-fontawesome.min.css";
 import "../../assets/css/animate.min.css";
@@ -9,14 +9,15 @@ import "../../assets/css/nice-select.min.css";
 import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import LogoImages from "../../exportImages/LogoImages";
+import { logout } from "../../services/api";
 
-import logo from "../../assets/img/logo/logo.png"
-
-import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg"
-
-import account2 from "../../assets/img/account/02.jpg"
 
 function UserDashboard() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await logout(navigate);
+};
   return (
     <>
       {/* header area */}
@@ -48,7 +49,7 @@ function UserDashboard() {
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
-            style={{ background: `url(${breadcrumb1})` }}
+            style={{ background: `url(${LogoImages.breadcrumbImage})` }}
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
@@ -73,7 +74,7 @@ function UserDashboard() {
                 <div className="sidebar">
                   <div className="sidebar-top">
                     <div className="sidebar-profile-img">
-                      <img src={account2} alt="" />
+                      <img src={""} alt="" />
                       <button type="button" className="profile-img-btn">
                         <i className="far fa-camera" />
                       </button>
@@ -152,7 +153,7 @@ function UserDashboard() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="#" onClick={handleLogout}>
                         <i className="far fa-sign-out" /> Logout
                       </Link>
                     </li>

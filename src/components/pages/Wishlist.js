@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import "../../assets/css/bootstrap.min.css";
@@ -11,8 +11,13 @@ import "../../assets/css/nice-select.min.css";
 import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import { logout } from "../../services/api";
 
 function Wishlist() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await logout(navigate);
+};
   return (
     <>
       
@@ -149,7 +154,7 @@ function Wishlist() {
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="#"  onClick={handleLogout}>
                         <i className="far fa-sign-out" /> Logout
                       </a>
                     </li>

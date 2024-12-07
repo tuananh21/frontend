@@ -7,28 +7,13 @@ import "../assets/css/magnific-popup.min.css";
 import "../assets/css/owl.carousel.min.css";
 import "../assets/css/nice-select.min.css";
 import "../assets/css/style.css";
-
 import logo from "../assets/img/logo/logo.png";
+import { checkLoginStatus } from "../utils/AuthUtils";
+import ViewDropDownCart from "./Lists/ViewDropDownCart";
+import LogoImages from "../exportImages/LogoImages";
 
-import megabanner from "../assets/img/banner/mega-menu-banner.jpg";
 
-import slider1 from "../assets/img/hero/slider-1.jpg";
 
-import product1 from "../assets/img/product/01.png";
-import product2 from "../assets/img/product/02.png";
-import product3 from "../assets/img/product/03.png";
-import product4 from "../assets/img/product/04.png";
-import product5 from "../assets/img/product/05.png";
-import product6 from "../assets/img/product/06.png";
-import product7 from "../assets/img/product/07.png";
-import product8 from "../assets/img/product/08.png";
-import product9 from "../assets/img/product/09.png";
-import product10 from "../assets/img/product/10.png";
-import product11 from "../assets/img/product/11.png";
-import product12 from "../assets/img/product/12.png";
-import product13 from "../assets/img/product/13.png";
-import product14 from "../assets/img/product/14.png";
-import product15 from "../assets/img/product/15.png";
 
 function Header() {
   return (
@@ -88,7 +73,7 @@ function Header() {
         <nav className="navbar navbar-expand-lg">
           <div className="container position-relative">
             <Link className="navbar-brand" to="/">
-              <img src={logo} alt="logo" />
+              <img src={LogoImages.logo} alt="logo" />
             </Link>
             <div className="mobile-menu-right">
               <div className="mobile-menu-btn">
@@ -537,7 +522,7 @@ function Header() {
                             <div className="col-12 col-lg-4">
                               <div className="mega-menu-img">
                                 <Link href="#">
-                                  <img src={megabanner} alt="" />
+                                  <img src={""} alt="" />
                                 </Link>
                               </div>
                             </div>
@@ -546,7 +531,7 @@ function Header() {
                       </div>
                     </div>
                   </li>
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
                     <Link
                       className="nav-link"
                       to="/shoplist"
@@ -563,113 +548,19 @@ function Header() {
                 </ul>
                 {/* nav-right */}
                 <div className="nav-right">
-                  <ul className="nav-right-list">
+                  <ul className="nav-right-list" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
                     <li>
                       <Link href="wishlist.html" className="list-link">
                         <i className="far fa-heart" />
                         <span>2</span>
                       </Link>
                     </li>
-                    <li className="dropdown-cart">
-                      <Link href="#" className="list-link shop-cart">
-                        <i className="far fa-shopping-bag" />
-                        <span>5</span>
-                      </Link>
-                      <div className="dropdown-cart-menu">
-                        <div className="dropdown-cart-header">
-                          <span>03 Items</span>
-                          <Link to="/cart">View Cart</Link>
-                        </div>
-                        <ul className="dropdown-cart-list">
-                          <li>
-                            <div className="dropdown-cart-item">
-                              <div className="cart-img">
-                                <Link href="#">
-                                  <img src={product6} alt="#" />
-                                </Link>
-                              </div>
-                              <div className="cart-info">
-                                <h4>
-                                  <Link href="#">Living Room Chair</Link>
-                                </h4>
-                                <p className="cart-qty">
-                                  1x -{" "}
-                                  <span className="cart-amount">$200.00</span>
-                                </p>
-                              </div>
-                              <Link
-                                href="#"
-                                className="cart-remove"
-                                title="Remove this item"
-                              >
-                                <i className="far fa-times-circle" />
-                              </Link>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="dropdown-cart-item">
-                              <div className="cart-img">
-                                <Link href="#">
-                                  <img src={product14} alt="#" />
-                                </Link>
-                              </div>
-                              <div className="cart-info">
-                                <h4>
-                                  <Link href="#">Living Room Chair</Link>
-                                </h4>
-                                <p className="cart-qty">
-                                  1x -{" "}
-                                  <span className="cart-amount">$120.00</span>
-                                </p>
-                              </div>
-                              <Link
-                                href="#"
-                                className="cart-remove"
-                                title="Remove this item"
-                              >
-                                <i className="far fa-times-circle" />
-                              </Link>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="dropdown-cart-item">
-                              <div className="cart-img">
-                                <Link href="#">
-                                  <img src={product15} alt="#" />
-                                </Link>
-                              </div>
-                              <div className="cart-info">
-                                <h4>
-                                  <Link href="#">Living Room Chair</Link>
-                                </h4>
-                                <p className="cart-qty">
-                                  1x -{" "}
-                                  <span className="cart-amount">$330.00</span>
-                                </p>
-                              </div>
-                              <Link
-                                href="#"
-                                className="cart-remove"
-                                title="Remove this item"
-                              >
-                                <i className="far fa-times-circle" />
-                              </Link>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="dropdown-cart-bottom">
-                          <div className="dropdown-cart-total">
-                            <span>Total</span>
-                            <span className="total-amount">$650.00</span>
-                          </div>
-                          <Link to="/checkout" className="theme-btn">
-                            Checkout
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
+
+                    {/* View dropdown cart */}
+                    <ViewDropDownCart />
+
                   </ul>
-                  <div className="nav-right-btn">
+                  <div className="nav-right-btn" style={{ display: checkLoginStatus() ? 'none' : 'block' }}>
                     <Link to="/login" className="theme-btn theme-btn2">
                       <span className="far fa-user-tie" /> Login
                     </Link>

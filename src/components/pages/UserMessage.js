@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/all-fontawesome.min.css";
 import "../../assets/css/animate.min.css";
@@ -9,8 +9,13 @@ import "../../assets/css/nice-select.min.css";
 import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import { logout } from "../../services/api";
 
 function UserMessage() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await logout(navigate);
+};
   return (
     <>
       {/* header area */}
@@ -146,7 +151,7 @@ function UserMessage() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="#"  onClick={handleLogout}>
                         <i className="far fa-sign-out" /> Logout
                       </Link>
                     </li>

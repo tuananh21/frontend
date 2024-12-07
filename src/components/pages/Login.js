@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/all-fontawesome.min.css";
 import "../../assets/css/animate.min.css";
@@ -9,12 +9,33 @@ import "../../assets/css/nice-select.min.css";
 import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import LogoImages from "../../exportImages/LogoImages";
+import LoginForm from "../forms/LoginForm";
+import { useState } from "react";
+import { login } from "../../services/api";
 
-import logo from "../../assets/img/logo/logo.png"
-import megabanner from "../../assets/img/banner/mega-menu-banner.jpg"
-import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg"
 
 function Login() {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogin = async (user) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(user.email)) {
+      setErrorMessage("Email không đúng định dạng");
+      return;
+    }
+
+    try {
+      const data = await login(user);
+      localStorage.setItem('token', data.token);
+      navigate('/'); 
+    } catch (error) {
+      setErrorMessage(error.message); 
+    }
+  };
+
   return (
     <>
       {/* header area */}
@@ -46,14 +67,14 @@ function Login() {
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
-            style={{ background: `url(${breadcrumb1})` }}
+            style={{ background: `url(${LogoImages.breadcrumbImage})` }}
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
               <h4 className="breadcrumb-title">Login</h4>
               <ul className="breadcrumb-menu">
                 <li>
-                  <Link href="index.html">
+                  <Link to="/">
                     <i className="far fa-home" /> Home
                   </Link>
                 </li>
@@ -72,45 +93,8 @@ function Login() {
                   <img src="assets/img/logo/logo.png" alt="" />
                   <p>Login with your fameo account</p>
                 </div>
-                <form action="#">
-                  <div className="form-group">
-                    <label>Email Address</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="Your Email"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Your Password"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between mb-4">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultValue=""
-                        id="remember"
-                      />
-                      <label className="form-check-label" htmlFor="remember">
-                        Remember Me
-                      </label>
-                    </div>
-                    <Link href="forgot-password.html" className="forgot-pass">
-                      Forgot Password?
-                    </Link>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <button type="submit" className="theme-btn">
-                      <i className="far fa-sign-in" /> Login
-                    </button>
-                  </div>
-                </form>
+                {/* loginform */}
+                <LoginForm handleLogin={handleLogin} errorMessage={errorMessage} />
                 <div className="login-footer">
                   <p>
                     Don't have an account? <Link to="/register">Register.</Link>
@@ -136,9 +120,9 @@ function Login() {
           </div>
         </div>
         {/* login area end */}
-      </main>
+      </main >
       {/* footer area */}
-      <Footer />
+      < Footer />
       {/* footer area end */}
       {/* scroll-top */}
       <Link href="#" id="scroll-top">
