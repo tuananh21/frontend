@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getHeaders } from "../utils/HeaderUtils";
-import { error } from "jquery";
 
 
 // Config 
@@ -37,15 +36,7 @@ export const login = async (data) => {
     }
 };
 
-export const fetchCartItems = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/cart/all`, { headers: getHeaders(TOKEN) });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching cart items:", error);
-        throw error;
-    }
-};
+
 
 export const logout = async (navigate) => {
     try {
@@ -59,6 +50,17 @@ export const logout = async (navigate) => {
 };
 
 
+export const fetchCartItems = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/cart/all`, { headers: getHeaders(TOKEN) });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+        throw error;
+    }
+};
+
+
 export const removeCartItem = (id) => {
     return axios
         .delete(`${BASE_URL}/cart/del?id=${id}`, { headers: getHeaders(TOKEN) })
@@ -67,7 +69,7 @@ export const removeCartItem = (id) => {
             console.error("Error removing cart item:", err);
             throw err;
         });
-}; 
+};
 
 export const updateCartItemQuantity = (productId, quantity) => {
     return axios
@@ -77,4 +79,35 @@ export const updateCartItemQuantity = (productId, quantity) => {
             console.error("Error updating cart item quantity:", err);
             throw err;
         });
+};
+
+export const updateCartSummary = async () => {
+    try {
+        const response = await axios.put(`${BASE_URL}/summary/update`, {}, { headers: getHeaders(TOKEN) });
+        return response.data;
+    } catch (error) {
+        console.error("Error updating cart summary:", error);
+        throw error;
+    }
+};
+
+export const fetchCartSummary = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/summary/show`, { headers: getHeaders(TOKEN) });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching cart summary:", error);
+        throw error;
+    }
+};
+
+
+export const fetchPopularItems = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/product/popular`);
+        return response.data;
+    } catch (err) {
+        console.error('Error fetching popular items:', err);
+        throw err;
+    }
 };

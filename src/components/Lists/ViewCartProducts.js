@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 
 
-
-
 const ViewCartProducts = () => {
     const [productCarts, setCartItems] = useState([]);
 

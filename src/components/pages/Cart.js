@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/all-fontawesome.min.css";
 import "../../assets/css/animate.min.css";
@@ -12,11 +11,11 @@ import Header from "../Header";
 import Footer from "../Footer";
 import LogoImages from "../../exportImages/LogoImages";
 import ViewCartProducts from "../Lists/ViewCartProducts";
+import ViewCartSummary from "../Lists/ViewCartSummary";
 
 
 function Cart() {
   
-
   return (
     <>
       {/* Header Area */}
@@ -70,19 +69,14 @@ function Cart() {
                     </div>
                   </div>
                 </div>
-
                 {/* Cart Summary */}
-                
-
-                
+                <ViewCartSummary />
               </div>
             </div>
           </div>
         </div>
-
       </main>
-
-      {/* Footer Area */}
+      {/* ooter Area */}
       <Footer />
     </>
   );
