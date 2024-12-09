@@ -11,7 +11,6 @@ const ViewCartProducts = () => {
         fetchCartItems()
             .then((products) => {
                 setCartItems(products);
-                console.log(products);
             })
             .catch((err) => console.log(err));
     };
@@ -61,7 +60,7 @@ const ViewCartProducts = () => {
                             <td>
                                 <div className="shop-cart-img">
                                     <Link href="#">
-                                        <img src={item.product.imageUrl} alt={item.product.name} />
+                                        <img src={item.product.image} alt={item.product.name} />
                                     </Link>
                                 </div>
                             </td>
@@ -82,7 +81,7 @@ const ViewCartProducts = () => {
                             </td>
                             <td>
                                 <div className="shop-cart-price">
-                                    <span>${item.product.price.toFixed(2)}</span>
+                                    <span>${item.product.price}</span>
                                 </div>
                             </td>
                             <td>
@@ -116,7 +115,7 @@ const ViewCartProducts = () => {
                             <td>
                                 <div className="shop-cart-subtotal">
                                     <span>
-                                        ${(item.product.price * item.quantity).toFixed(2)}
+                                        ${(item.product.price * item.quantity)}
                                     </span>
                                 </div>
                             </td>

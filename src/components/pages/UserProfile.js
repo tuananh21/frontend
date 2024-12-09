@@ -10,6 +10,7 @@ import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { logout } from "../../services/api";
+import LogoImages from "../../exportImages/LogoImages";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function UserProfile() {
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
-            style={{ background: "url(assets/img/breadcrumb/01.jpg)" }}
+            style={{ background: `url(${LogoImages.breadcrumbImage})` }}
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">

@@ -11,6 +11,7 @@ import logo from "../assets/img/logo/logo.png";
 import { checkLoginStatus } from "../utils/AuthUtils";
 import ViewDropDownCart from "./Lists/ViewDropDownCart";
 import LogoImages from "../exportImages/LogoImages";
+import { fetchCartItems } from "../services/api";
 
 
 
@@ -136,7 +137,7 @@ function Header() {
                       About
                     </Link>
                   </li>
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
                     <Link
                       className="nav-link dropdown-toggle"
                       href="#"

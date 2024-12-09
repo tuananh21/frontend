@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
-import { fetchCartItems } from "../../services/api";
+import { fetchCartItems, fetchCartSummary, updateCartSummary } from "../../services/api";
 import { Link } from "react-router-dom";
 
 
 const ViewDropDownCart = () => {
     const [productCarts, setProductCarts] = useState([]);
     const [ProductCount, setProductCount] = useState(0);
-
+    const [cartSummary, setCartSummary] = useState({
+        total: 0,
+    });
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const products = await fetchCartItems();
                 setProductCount(products.length);
                 setProductCarts(products);
-                console.log(productCarts)
+
+                const summary = await fetchCartSummary();
+                setCartSummary(summary);
             } catch (error) {
                 console.error(error);
             }
@@ -38,7 +42,7 @@ const ViewDropDownCart = () => {
                                 <div className="dropdown-cart-item">
                                     <div className="cart-img">
                                         <Link href="#">
-                                            <img src={e.product.imageUrl} alt="product image" />
+                                            <img src={e.product.image} alt="product image" />
                                         </Link>
                                     </div>
                                     <div className="cart-info">
@@ -67,7 +71,7 @@ const ViewDropDownCart = () => {
                 <div className="dropdown-cart-bottom">
                     <div className="dropdown-cart-total">
                         <span>Total</span>
-                        <span className="total-amount">${productCarts.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}</span>
+                        <span className="total-amount">${cartSummary.total}</span>
                     </div>
                     <Link to="/checkout" className="theme-btn">
                         Checkout

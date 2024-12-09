@@ -110,4 +110,15 @@ export const fetchPopularItems = async () => {
         console.error('Error fetching popular items:', err);
         throw err;
     }
-};
+};  
+
+export const registerUser = async (userData) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/public/register`, userData);
+        console.log(response.data.errors);
+        return response.data;
+    } catch (error) {
+        throw  error.response?.data || error;
+    }
+}
+

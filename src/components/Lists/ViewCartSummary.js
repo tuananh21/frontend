@@ -12,10 +12,8 @@ const ViewCartSummary = () => {
     const loadCartSummary = async () => {
         try {
             await updateCartSummary();
-            console.log("Cart summary updated successfully!");
             const data = await fetchCartSummary();
             setCartSummary(data);
-            console.log("Cart summary fetched successfully:", data);
         } catch (error) {
             console.error("Error while loading cart summary:", error);
         }

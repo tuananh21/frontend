@@ -46,7 +46,6 @@ import category6 from "../../assets/img/category/06.png";
 import category7 from "../../assets/img/category/07.png";
 import category8 from "../../assets/img/category/08.png";
 import category9 from "../../assets/img/category/09.png";
-import { useEffect } from "react";
 import ViewPopularItems from "../Lists/ViewPopularItems";
 
 
@@ -431,7 +430,7 @@ function Home() {
         </div>
         {/* feature area end */}
         {/* trending item */}
-        <div className="product-area pb-100">
+        {/* <div className="product-area pb-100">
           <div className="container">
             <div className="row">
               <div className="col-12 wow fadeInDown" data-wow-delay=".25s">
@@ -816,7 +815,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* trending item end */}
         {/* big banner */}
         <div className="big-banner">

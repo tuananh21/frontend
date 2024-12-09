@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchPopularItems } from '../../services/api';
+import { fetchCartItems, fetchPopularItems } from '../../services/api';
 import { Link } from 'react-router-dom';
 
 const ViewPopularItems = () => {
@@ -27,8 +27,8 @@ const ViewPopularItems = () => {
                         <div className="product-item">
                             <div className="product-img">
                                 <span className="type new">New</span>
-                                <Link to="/shop-single">
-                                <img src={e.image} alt={e.name} />
+                                <Link to="/Product">
+                                    <img src={e.image} alt={e.name} />
                                 </Link>
                                 <div className="product-action-wrap">
                                     <div className="product-action">
