@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getHeaders } from "../utils/HeaderUtils";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 
 // Config 
@@ -115,10 +116,20 @@ export const fetchPopularItems = async () => {
 export const registerUser = async (userData) => {
     try {
         const response = await axios.post(`${BASE_URL}/public/register`, userData);
-        console.log(response.data.errors);
         return response.data;
     } catch (error) {
         throw  error.response?.data || error;
     }
 }
 
+export const fetchShopSingle = async (id) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/product/single/${id}`, {
+            headers: getHeaders(TOKEN),
+        });
+        return response.data; 
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+    }
+};

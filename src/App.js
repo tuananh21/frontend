@@ -28,7 +28,7 @@ function App() {
       <Route path="/message" element={<UserMessage />} />
       <Route path="/notification" element={<UserNotification />} />
       <Route path="/profile" element={<UserProfile />} />
-      <Route path="/product" element={<Product />} />
+      <Route path="/product/:productId" element={<Product />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/checkout" element={<Checkout />} />

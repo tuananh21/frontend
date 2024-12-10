@@ -11,6 +11,7 @@ const ViewCartProducts = () => {
         fetchCartItems()
             .then((products) => {
                 setCartItems(products);
+                console.log(productCarts);
             })
             .catch((err) => console.log(err));
     };
@@ -74,7 +75,7 @@ const ViewCartProducts = () => {
                                             <span>Type:</span> {item.product.description}
                                         </p>
                                         <p>
-                                            <span>Color:</span> {item.product.color.name}
+                                            <span>Color:</span> {}
                                         </p>
                                     </div>
                                 </div>

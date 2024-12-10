@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchCartItems, fetchPopularItems } from '../../services/api';
+import { fetchPopularItems } from '../../services/api';
 import { Link } from 'react-router-dom';
 
 const ViewPopularItems = () => {
@@ -9,7 +9,6 @@ const ViewPopularItems = () => {
         try {
             const products = await fetchPopularItems();
             setPopularItems(products);
-            console.log(products);
         } catch (err) {
             console.error('Error loading popular items:', err);
         }
@@ -27,7 +26,7 @@ const ViewPopularItems = () => {
                         <div className="product-item">
                             <div className="product-img">
                                 <span className="type new">New</span>
-                                <Link to="/Product">
+                                <Link to={`/Product/${e.id}`}>
                                     <img src={e.image} alt={e.name} />
                                 </Link>
                                 <div className="product-action-wrap">
@@ -46,7 +45,7 @@ const ViewPopularItems = () => {
                             </div>
                             <div className="product-content">
                                 <h3 className="product-title">
-                                    <Link to="/shop-single">{e.name}</Link>
+                                    <Link to={`/Product/${e.id}`}>{e.name}</Link>
                                 </h3>
                                 <div className="product-rate">
                                     {Array.from({ length: 5 }, (_, index) => (
