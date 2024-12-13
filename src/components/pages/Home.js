@@ -928,7 +928,7 @@ function Home() {
                 aria-labelledby="item-tab1"
                 tabIndex={0}
               >
-                <ViewPopularItems />
+              <ViewPopularItems />
               </div>
               <div
                 className="tab-pane"

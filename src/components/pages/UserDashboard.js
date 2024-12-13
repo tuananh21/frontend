@@ -223,6 +223,8 @@ function UserDashboard() {
                               </tr>
                             </thead>
                             <tbody>
+                              
+                              {/* order items  */}
                               <tr>
                                 <td>
                                   <span className="table-list-code">
@@ -247,150 +249,7 @@ function UserDashboard() {
                                   </Link>
                                 </td>
                               </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-primary">
-                                    Processing
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-danger">
-                                    Cancelled
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-success">
-                                    Completed
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
+                              {/* order items end */}
                             </tbody>
                           </table>
                         </div>

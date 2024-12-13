@@ -1,7 +1,5 @@
 import axios from "axios";
 import { getHeaders } from "../utils/HeaderUtils";
-import { wait } from "@testing-library/user-event/dist/utils";
-
 
 // Config 
 const BASE_URL = "http://localhost:8080";
@@ -63,6 +61,7 @@ export const fetchCartItems = async () => {
 
 
 export const removeCartItem = (id) => {
+    console.log("Remove productCartId: ", id);
     return axios
         .delete(`${BASE_URL}/cart/del?id=${id}`, { headers: getHeaders(TOKEN) })
         .then((res) => res.data)
@@ -111,14 +110,14 @@ export const fetchPopularItems = async () => {
         console.error('Error fetching popular items:', err);
         throw err;
     }
-};  
+};
 
 export const registerUser = async (userData) => {
     try {
         const response = await axios.post(`${BASE_URL}/public/register`, userData);
         return response.data;
     } catch (error) {
-        throw  error.response?.data || error;
+        throw error.response?.data || error;
     }
 }
 
@@ -127,9 +126,28 @@ export const fetchShopSingle = async (id) => {
         const response = await axios.get(`${BASE_URL}/product/single/${id}`, {
             headers: getHeaders(TOKEN),
         });
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error("Error fetching data:", error);
         throw error;
     }
 };
+
+export const addToCartApi = async (baseAddToCart) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/cart/add`, (baseAddToCart), { headers: getHeaders(TOKEN) });
+        return response.data.message;
+    } catch (error) {
+        const errorMessage = error.response?.data?.message || "An unexpected error occurred";
+        throw new Error(errorMessage);
+    }
+}
+
+export const fetchRelatedProducts = async (categoryId) => {
+    return await axios.get(`${BASE_URL}/product/related/${categoryId}`, {headers: getHeaders(TOKEN)} )
+    .then((res) => res.data)
+    .catch((error) => {
+        console.log("Get product related error!", error);
+        throw error;
+    })
+}

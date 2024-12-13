@@ -1,28 +1,80 @@
 import { useEffect, useState } from "react";
-import { fetchShopSingle } from "../../services/api";
+import { addToCartApi, fetchRelatedProducts, fetchShopSingle } from "../../services/api";
 import { useParams } from "react-router-dom";
-
-
+import { message } from "antd";
 
 const ViewShopSingle = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [images, setImages] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [relatedProducts, setRelatedProducts] = useState([]);
+    const [category, setCategory] = useState([]);
+
+    const handleQuantityChange = (type) => {
+        setQuantity((prevQuantity) =>
+            type === "increment" ? prevQuantity + 1 : Math.max(1, prevQuantity - 1)
+        );
+    };
+
+    const handleSizeChange = (e) => {
+        setSelectedSize(parseInt(e.target.value, 10));
+    };
+
+    const handleColorChange = (colorId) => {
+        setSelectedColor(colorId);
+    };
+
+    const handleToCart = async () => {
+        const baseAddToCart = {
+            productId: parseInt(productId),
+            quantity: quantity,
+            sizeId: selectedSize,
+            colorId: selectedColor,
+        }
+
+        if (!selectedSize || !selectedColor) {
+            message.error("Please select size and color before adding to cart.");
+            return;
+        }
+
+        try {
+            const response = await addToCartApi(baseAddToCart);
+            message.success(response);
+        } catch (error) {
+            message.error(error.message);
+        }
+    }
+
     useEffect(() => {
         const getProductData = async () => {
             try {
                 const data = await fetchShopSingle(productId);
-                console.log("Fetched data:", data); // Kiểm tra dữ liệu trả về
                 setProduct(data);
+                setCategory(data.categories);
                 setImages(data.images || []);
+
+                if (data.categories?.id) {
+                    loadRelatedItems(data.categories.id);
+                }
             } catch (err) {
                 console.error("Error fetching product data:", err);
             }
         };
-    
         getProductData();
     }, [productId]);
-    
+
+    const loadRelatedItems = async (categoryId) => {
+        try {
+            const data = await fetchRelatedProducts(categoryId);
+            setRelatedProducts(data);
+        } catch (error) {
+            console.log("related products error: ", error);
+        }
+    };
+
     return (
         <>
             <div className="shop-single py-90">
@@ -56,7 +108,6 @@ const ViewShopSingle = () => {
                                             : null}
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                         {product && (
@@ -72,8 +123,8 @@ const ViewShopSingle = () => {
                                         <span className="rating-count"> (4 Customer Reviews)</span>
                                     </div>
                                     <div className="shop-single-price">
-                                        <del>${(product.price / 100) * product.sale}</del>
-                                        <span className="amount">${product.price}</span>
+                                        <del>${product.price}</del>
+                                        <span className="amount">${product.price - ((product.price / 100) * product.sale)}</span>
                                         <span className="discount-percentage">{product.sale}% Off</span>
                                     </div>
                                     <p className="mb-3">
@@ -84,126 +135,57 @@ const ViewShopSingle = () => {
                                     </p>
                                     <div className="shop-single-cs">
                                         <div className="row">
+                                            {/* Quantity */}
                                             <div className="col-md-3 col-lg-4 col-xl-3">
                                                 <div className="shop-single-size">
                                                     <h6>Quantity</h6>
                                                     <div className="shop-cart-qty">
-                                                        <button className="minus-btn">
+                                                        <button className="minus-btn" onClick={() => handleQuantityChange("decrement")}>
                                                             <i className="fal fa-minus" />
                                                         </button>
-                                                        <input
-                                                            className="quantity"
-                                                            type="text"
-                                                            defaultValue={1}
-                                                            disabled=""
-                                                        />
-                                                        <button className="plus-btn">
+                                                        <input className="quantity" type="text" value={quantity} readOnly />
+                                                        <button className="plus-btn" onClick={() => handleQuantityChange("increment")}>
                                                             <i className="fal fa-plus" />
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
+                                            {/* Size */}
                                             <div className="col-md-3 col-lg-4 col-xl-3">
                                                 <div className="shop-single-size">
                                                     <h6>Size</h6>
-                                                    <select className="select">
+                                                    <select className="select" value={selectedSize || ""} onChange={handleSizeChange}>
                                                         <option value="">Choose Size</option>
-                                                        <option value={1}>Extra Small</option>
-                                                        <option value={2}>Small</option>
-                                                        <option value={3}>Medium</option>
-                                                        <option value={4}>Extra Large</option>
+                                                        {product.sizes.map((size) => (
+                                                            <option key={size.id} value={size.id}>
+                                                                {size.name}
+                                                            </option>
+                                                        ))}
                                                     </select>
                                                 </div>
                                             </div>
+                                            {/* Color */}
                                             <div className="col-md-6 col-lg-12 col-xl-6">
                                                 <div className="shop-single-color">
                                                     <h6>Color</h6>
                                                     <ul className="shop-checkbox-list color">
-                                                        <li>
-                                                            <div className="form-check">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="checkbox"
-                                                                    id="color1"
-                                                                />
-                                                                <label
-                                                                    className="form-check-label"
-                                                                    htmlFor="color1"
-                                                                >
-                                                                    <span
-                                                                        style={{ backgroundColor: "#606ddd" }}
+                                                        {product.colors.map((color) => (
+                                                            <li key={color.id}>
+                                                                <div className="form-check">
+                                                                    <input
+                                                                        className="form-check-input"
+                                                                        type="radio"
+                                                                        name="color"
+                                                                        id={`color${color.id}`}
+                                                                        checked={selectedColor === color.id}
+                                                                        onChange={() => handleColorChange(color.id)}
                                                                     />
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div className="form-check">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="checkbox"
-                                                                    id="color2"
-                                                                />
-                                                                <label
-                                                                    className="form-check-label"
-                                                                    htmlFor="color2"
-                                                                >
-                                                                    <span
-                                                                        style={{ backgroundColor: "#4caf50" }}
-                                                                    />
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div className="form-check">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="checkbox"
-                                                                    id="color3"
-                                                                />
-                                                                <label
-                                                                    className="form-check-label"
-                                                                    htmlFor="color3"
-                                                                >
-                                                                    <span
-                                                                        style={{ backgroundColor: "#17a2b8" }}
-                                                                    />
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div className="form-check">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="checkbox"
-                                                                    id="color4"
-                                                                />
-                                                                <label
-                                                                    className="form-check-label"
-                                                                    htmlFor="color4"
-                                                                >
-                                                                    <span
-                                                                        style={{ backgroundColor: "#ffc107" }}
-                                                                    />
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div className="form-check">
-                                                                <input
-                                                                    className="form-check-input"
-                                                                    type="checkbox"
-                                                                    id="color5"
-                                                                />
-                                                                <label
-                                                                    className="form-check-label"
-                                                                    htmlFor="color5"
-                                                                >
-                                                                    <span
-                                                                        style={{ backgroundColor: "#f44336" }}
-                                                                    />
-                                                                </label>
-                                                            </div>
-                                                        </li>
+                                                                    <label className="form-check-label" htmlFor={`color${color.id}`}>
+                                                                        <span style={{ backgroundColor: color.hexCode }} />
+                                                                    </label>
+                                                                </div>
+                                                            </li>
+                                                        ))}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -212,31 +194,37 @@ const ViewShopSingle = () => {
                                     <div className="shop-single-sortinfo">
                                         <ul>
                                             <li>
-                                                Stock: <span>Available</span>
+                                                Stock: <span>{product.status}</span>
                                             </li>
-                                            <li>
+                                            {/* <li>
                                                 SKU: <span>656TYTR</span>
-                                            </li>
+                                            </li> */}
                                             <li>
-                                                Category: <span>Living Room</span>
+                                                Category: <span>{product.categories.name}</span>
                                             </li>
-                                            <li>
+                                            {/* <li>
                                                 Brand: <a href="#">Novak</a>
                                             </li>
                                             <li>
                                                 Tags: <a href="#">Furniture</a>,<a href="#">Chair</a>,
                                                 <a href="#">Modern</a>,<a href="#">Shop</a>
-                                            </li>
+                                            </li> */}
                                         </ul>
                                     </div>
                                     <div className="shop-single-action">
                                         <div className="row align-items-center">
                                             <div className="col-md-6 col-lg-12 col-xl-6">
                                                 <div className="shop-single-btn">
-                                                    <a href="#" className="theme-btn">
+                                                    <button
+                                                        className="theme-btn"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleToCart();
+                                                        }}
+                                                    >
                                                         <span className="far fa-shopping-bag" />
                                                         Add To Cart
-                                                    </a>
+                                                    </button>
                                                     <a
                                                         href="#"
                                                         className="theme-btn theme-btn2"
@@ -329,26 +317,7 @@ const ViewShopSingle = () => {
                             >
                                 <div className="shop-single-desc">
                                     <p>
-                                        There are many variations of passages of Lorem Ipsum
-                                        available, but the majority have suffered alteration in
-                                        some form, by injected humour, or randomised words which
-                                        don't look even slightly believable. If you are going to
-                                        use a passage of Lorem Ipsum, you need to be sure there
-                                        isn't anything embarrassing hidden in the middle of text.
-                                        All the Lorem Ipsum generators on the Internet tend to
-                                        repeat predefined chunks as necessary, making this the
-                                        first true generator on the Internet.
-                                    </p>
-                                    <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit
-                                        voluptatem accusantium doloremque laudantium, totam rem
-                                        aperiam, eaque ipsa quae ab illo inventore veritatis et
-                                        quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                                        enim ipsam voluptatem quia voluptas sit aspernatur aut
-                                        odit aut fugit, sed quia consequuntur magni dolores eos
-                                        qui ratione voluptatem sequi nesciunt. Neque porro
-                                        quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                        consectetur, adipisci velit.
+                                        {product?.description}
                                     </p>
                                     <div className="row">
                                         <div className="col-lg-5 col-xl-4">
@@ -631,271 +600,79 @@ const ViewShopSingle = () => {
                                 </div>
                             </div>
                             <div className="row g-4 item-2">
-                                <div className="col-md-6 col-lg-3">
-                                    <div className="product-item">
-                                        <div className="product-img">
-                                            <span className="type new">New</span>
-                                            <a href="shop-single.html">
-                                                <img src="assets/img/product/07.png" alt="" />
-                                            </a>
-                                            <div className="product-action-wrap">
-                                                <div className="product-action">
-                                                    <a
-                                                        href="#"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#quickview"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Quick View"
-                                                    >
-                                                        <i className="far fa-eye" />
+
+                                {Array.isArray(relatedProducts) && relatedProducts.length > 0 ? (
+                                    relatedProducts.map((e, i) => (
+                                        <div className="col-md-6 col-lg-3" key={e.id || i}>
+                                            <div className="product-item">
+                                                <div className="product-img">
+                                                    <span className="type new">New</span>
+                                                    <a href="shop-single.html">
+                                                        <img src={e.image} alt={e.name || "Product"} />
                                                     </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Wishlist"
-                                                    >
-                                                        <i className="far fa-heart" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Compare"
-                                                    >
-                                                        <i className="far fa-arrows-repeat" />
-                                                    </a>
+                                                    <div className="product-action-wrap">
+                                                        <div className="product-action">
+                                                            <a
+                                                                href="#"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#quickview"
+                                                                data-bs-placement="right"
+                                                                data-tooltip="tooltip"
+                                                                title="Quick View"
+                                                            >
+                                                                <i className="far fa-eye" />
+                                                            </a>
+                                                            <a
+                                                                href="#"
+                                                                data-bs-placement="right"
+                                                                data-tooltip="tooltip"
+                                                                title="Add To Wishlist"
+                                                            >
+                                                                <i className="far fa-heart" />
+                                                            </a>
+                                                            <a
+                                                                href="#"
+                                                                data-bs-placement="right"
+                                                                data-tooltip="tooltip"
+                                                                title="Add To Compare"
+                                                            >
+                                                                <i className="far fa-arrows-repeat" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="product-content">
+                                                    <h3 className="product-title">
+                                                        <a href="shop-single.html">{e.name || "Unnamed Product"}</a>
+                                                    </h3>
+                                                    <div className="product-rate">
+                                                        {Array.from({ length: 5 }, (_, index) => (
+                                                            <i key={index} className={index < (e.rating || 0) ? "fas fa-star" : "far fa-star"} />
+                                                        ))}
+                                                    </div>
+                                                    <div className="product-bottom">
+                                                        <div className="product-price">
+                                                            <span>${e.price || "0.00"}</span>
+                                                        </div>
+                                                        <button
+                                                            type="button"
+                                                            className="product-cart-btn"
+                                                            data-bs-placement="left"
+                                                            data-tooltip="tooltip"
+                                                            title="Add To Cart"
+                                                        >
+                                                            <i className="far fa-shopping-bag" />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="product-content">
-                                            <h3 className="product-title">
-                                                <a href="shop-single.html">Simple Denim Chair</a>
-                                            </h3>
-                                            <div className="product-rate">
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="far fa-star" />
-                                            </div>
-                                            <div className="product-bottom">
-                                                <div className="product-price">
-                                                    <span>$100.00</span>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="product-cart-btn"
-                                                    data-bs-placement="left"
-                                                    data-tooltip="tooltip"
-                                                    title="Add To Cart"
-                                                >
-                                                    <i className="far fa-shopping-bag" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 col-lg-3">
-                                    <div className="product-item">
-                                        <div className="product-img">
-                                            <span className="type hot">Hot</span>
-                                            <a href="shop-single.html">
-                                                <img src="assets/img/product/08.png" alt="" />
-                                            </a>
-                                            <div className="product-action-wrap">
-                                                <div className="product-action">
-                                                    <a
-                                                        href="#"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#quickview"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Quick View"
-                                                    >
-                                                        <i className="far fa-eye" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Wishlist"
-                                                    >
-                                                        <i className="far fa-heart" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Compare"
-                                                    >
-                                                        <i className="far fa-arrows-repeat" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="product-content">
-                                            <h3 className="product-title">
-                                                <a href="shop-single.html">Simple Denim Chair</a>
-                                            </h3>
-                                            <div className="product-rate">
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="far fa-star" />
-                                            </div>
-                                            <div className="product-bottom">
-                                                <div className="product-price">
-                                                    <span>$100.00</span>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="product-cart-btn"
-                                                    data-bs-placement="left"
-                                                    data-tooltip="tooltip"
-                                                    title="Add To Cart"
-                                                >
-                                                    <i className="far fa-shopping-bag" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 col-lg-3">
-                                    <div className="product-item">
-                                        <div className="product-img">
-                                            <span className="type oos">Out Of Stock</span>
-                                            <a href="shop-single.html">
-                                                <img src="assets/img/product/12.png" alt="" />
-                                            </a>
-                                            <div className="product-action-wrap">
-                                                <div className="product-action">
-                                                    <a
-                                                        href="#"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#quickview"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Quick View"
-                                                    >
-                                                        <i className="far fa-eye" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Wishlist"
-                                                    >
-                                                        <i className="far fa-heart" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Compare"
-                                                    >
-                                                        <i className="far fa-arrows-repeat" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="product-content">
-                                            <h3 className="product-title">
-                                                <a href="shop-single.html">Simple Denim Chair</a>
-                                            </h3>
-                                            <div className="product-rate">
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="far fa-star" />
-                                            </div>
-                                            <div className="product-bottom">
-                                                <div className="product-price">
-                                                    <span>$100.00</span>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="product-cart-btn"
-                                                    data-bs-placement="left"
-                                                    data-tooltip="tooltip"
-                                                    title="Add To Cart"
-                                                >
-                                                    <i className="far fa-shopping-bag" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 col-lg-3">
-                                    <div className="product-item">
-                                        <div className="product-img">
-                                            <span className="type discount">10% Off</span>
-                                            <a href="shop-single.html">
-                                                <img src="assets/img/product/14.png" alt="" />
-                                            </a>
-                                            <div className="product-action-wrap">
-                                                <div className="product-action">
-                                                    <a
-                                                        href="#"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#quickview"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Quick View"
-                                                    >
-                                                        <i className="far fa-eye" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Wishlist"
-                                                    >
-                                                        <i className="far fa-heart" />
-                                                    </a>
-                                                    <a
-                                                        href="#"
-                                                        data-bs-placement="right"
-                                                        data-tooltip="tooltip"
-                                                        title="Add To Compare"
-                                                    >
-                                                        <i className="far fa-arrows-repeat" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="product-content">
-                                            <h3 className="product-title">
-                                                <a href="shop-single.html">Simple Denim Chair</a>
-                                            </h3>
-                                            <div className="product-rate">
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="fas fa-star" />
-                                                <i className="far fa-star" />
-                                            </div>
-                                            <div className="product-bottom">
-                                                <div className="product-price">
-                                                    <del>$120.00</del>
-                                                    <span>$100.00</span>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="product-cart-btn"
-                                                    data-bs-placement="left"
-                                                    data-tooltip="tooltip"
-                                                    title="Add To Cart"
-                                                >
-                                                    <i className="far fa-shopping-bag" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    ))
+                                ) : (
+                                    <p>No related products available.</p>
+                                )}
+
+
                             </div>
                         </div>
                     </div>
