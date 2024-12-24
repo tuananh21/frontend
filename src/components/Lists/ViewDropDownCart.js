@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
-import { fetchCartItems, fetchCartSummary, updateCartSummary } from "../../services/api";
+import { fetchCartItems } from "../../services/api";
 import { Link } from "react-router-dom";
 
 
 const ViewDropDownCart = () => {
     const [productCarts, setProductCarts] = useState([]);
     const [ProductCount, setProductCount] = useState(0);
-    const [cartSummary, setCartSummary] = useState({
-        total: 0,
-    });
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const products = await fetchCartItems();
-                setProductCount(products.length);
-                setProductCarts(products);
 
-                const summary = await fetchCartSummary();
-                setCartSummary(summary);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    const fetchData = async () => {
+        if (!localStorage.getItem("token")) return;
+
+        try {
+            const products = await fetchCartItems();
+            setProductCount(products.length);
+            setProductCarts(products);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
         fetchData();
     }, []);
     return (
@@ -68,7 +66,7 @@ const ViewDropDownCart = () => {
                         </li>
                     )}
                 </ul>
-                <div className="dropdown-cart-bottom">
+                {/* <div className="dropdown-cart-bottom">
                     <div className="dropdown-cart-total">
                         <span>Total</span>
                         <span className="total-amount">${cartSummary.total}</span>
@@ -76,7 +74,7 @@ const ViewDropDownCart = () => {
                     <Link to="/checkout" className="theme-btn">
                         Checkout
                     </Link>
-                </div>
+                </div> */}
             </div>
         </li>
     );

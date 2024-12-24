@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCartSummary } from "../../services/api";
 
-const ViewCartSummary = () => {
-    const [cartSummary, setCartSummary] = useState({
-        subtotal: 0,
+
+
+const ViewOrderSummary = () => {
+
+    const [orderSummary, setOrderSummary] = useState({
         discount: 0,
+        subtotal: 0,
         tax: 0,
         total: 0,
     });
 
-    const loadCartSummary = async () => {
+    const loadOrderSummary = async () => {
         const userId = localStorage.getItem("userId");
         try {
             const data = await getCartSummary(userId);
-            setCartSummary(data);
+            setOrderSummary(data);
         } catch (error) {
-            console.error("Error while loading cart summary:", error);
+            console.error("Error while loading order summary:", error);
         }
     };
 
     useEffect(() => {
-        loadCartSummary();
+        loadOrderSummary();
     }, []);
-
     return (
         <div className="col-lg-4">
             <div className="shop-cart-summary">
@@ -30,11 +32,11 @@ const ViewCartSummary = () => {
                 <ul>
                     <li>
                         <strong>Sub Total:</strong>
-                        <span>${cartSummary.subtotal}</span>
+                        <span>${orderSummary.subtotal}</span>
                     </li>
                     <li>
                         <strong>Discount:</strong>
-                        <span>${cartSummary.discount}</span>
+                        <span>${orderSummary.discount}</span>
                     </li>
                     <li>
                         <strong>Shipping:</strong>
@@ -42,22 +44,17 @@ const ViewCartSummary = () => {
                     </li>
                     <li>
                         <strong>Taxes:</strong>
-                        <span>${cartSummary.tax}</span>
+                        <span>${orderSummary.tax}</span>
                     </li>
                     <li className="shop-cart-total">
                         <strong>Total:</strong>
-                        <span>${cartSummary.total}</span>
+                        <span>${orderSummary.total}</span>
                     </li>
                 </ul>
-                <div className="text-end mt-40">
-                    <button className="theme-btn">
-                        Checkout Now
-                        <i className="fas fa-arrow-right" />
-                    </button>
-                </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ViewCartSummary;
+
+export default ViewOrderSummary;

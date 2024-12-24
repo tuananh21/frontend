@@ -2897,7 +2897,6 @@ label {
 =====================*/
 
 .shop-cart thead tr {
-  background: var(--theme-color);
   color: var(--color-white);
 }
 
@@ -3039,8 +3038,8 @@ label {
   border: 1px solid var(--border-info-color);
   background: var(--theme-bg-light);
   border-radius: 10px;
-  margin-top: 12px;
-  margin-left: 20px;
+  /* margin-top: 12px;
+  margin-left: 20px; */
 }
 
 .shop-cart-summary h5{
@@ -8731,5 +8730,16 @@ label {
   font-size: 60px;
 }
 
+.slick-dots li {
+  width: 100px !important;
+}
+
+.slick-dots {
+  bottom: -90px !important;
+}
+
+.shop-single-details .nav-tabs {
+  margin-top: 150px !important;
+}
 
 

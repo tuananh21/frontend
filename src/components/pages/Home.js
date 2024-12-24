@@ -12,9 +12,6 @@ import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
 
-import logo from "../../assets/img/logo/logo.png";
-
-import megabanner from "../../assets/img/banner/mega-menu-banner.jpg";
 import bigbanner from "../../assets/img/banner/big-banner.jpg"
 
 import slider1 from "../../assets/img/hero/slider-1.jpg";
@@ -32,10 +29,7 @@ import product10 from "../../assets/img/product/10.png";
 import product11 from "../../assets/img/product/11.png";
 import product12 from "../../assets/img/product/12.png";
 import product13 from "../../assets/img/product/13.png";
-import product14 from "../../assets/img/product/14.png";
-import product15 from "../../assets/img/product/15.png";
 import product16 from "../../assets/img/product/16.png";
-import product24 from "../../assets/img/product/24.png";
 
 import category1 from "../../assets/img/category/01.png";
 import category2 from "../../assets/img/category/02.png";
@@ -47,16 +41,24 @@ import category7 from "../../assets/img/category/07.png";
 import category8 from "../../assets/img/category/08.png";
 import category9 from "../../assets/img/category/09.png";
 import ViewPopularItems from "../Lists/ViewPopularItems";
+import { useEffect, useState } from "react";
 
 
 
 function Home() {
-  
+  const [reload, setReload] = useState(false);
+  const reloadHeader = () => {
+    setReload((prev) => !prev);
+  }
+
+  useEffect(()=>{
+    reloadHeader();
+  }, [])
   return (
     <>
-     
+
       {/* header area */}
-      <Header />
+      <Header key={reload}/>
       {/* header area end */}
       {/* popup search */}
       <div className="search-popup">
@@ -847,7 +849,7 @@ function Home() {
           </div>
         </div>
         {/* big banner end */}
-        
+
         {/* popular item */}
         <div className="product-area py-100">
           <div className="container">
@@ -928,7 +930,7 @@ function Home() {
                 aria-labelledby="item-tab1"
                 tabIndex={0}
               >
-              <ViewPopularItems />
+                <ViewPopularItems />
               </div>
               <div
                 className="tab-pane"
@@ -2415,7 +2417,7 @@ function Home() {
           </div>
         </div>
         {/* product list end */}
-        
+
       </main>
       {/* footer area */}
       <Footer />

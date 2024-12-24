@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { addToCartApi, fetchRelatedProducts, fetchShopSingle } from "../../services/api";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { message } from "antd";
+import React, { Component } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ViewShopSingle = () => {
+    const navigate = useNavigate();
     const { productId } = useParams();
+
     const [product, setProduct] = useState(null);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [category, setCategory] = useState([]);
 
     const handleQuantityChange = (type) => {
         setQuantity((prevQuantity) =>
@@ -23,46 +28,72 @@ const ViewShopSingle = () => {
         setSelectedSize(parseInt(e.target.value, 10));
     };
 
-    const handleColorChange = (colorId) => {
-        setSelectedColor(colorId);
+    const handleColorChange = (color) => {
+        setSelectedColor(color);
     };
 
-    const handleToCart = async () => {
-        const baseAddToCart = {
+    const setBaseAddToCart = () => {
+        if (!product || !selectedSize || !selectedColor) {
+            message.error("Please select size and color before adding to cart.");
+            return null; 
+        }
+    
+        return {
             productId: parseInt(productId),
             quantity: quantity,
-            sizeId: selectedSize,
-            colorId: selectedColor,
+            sizeId: selectedSize.id,
+            colorId: selectedColor.id,
+        };
+    };
+    
+    const handleToCart = async () => {
+        if (!localStorage.getItem("token")) {
+            return navigate("/login");
         }
 
-        if (!selectedSize || !selectedColor) {
-            message.error("Please select size and color before adding to cart.");
-            return;
-        }
+        const getBaseAddToCart = setBaseAddToCart();
+        if (!getBaseAddToCart) return;
 
         try {
-            const response = await addToCartApi(baseAddToCart);
+            const response = await addToCartApi(getBaseAddToCart);
             message.success(response);
         } catch (error) {
             message.error(error.message);
         }
     }
 
-    useEffect(() => {
-        const getProductData = async () => {
-            try {
-                const data = await fetchShopSingle(productId);
-                setProduct(data);
-                setCategory(data.categories);
-                setImages(data.images || []);
 
-                if (data.categories?.id) {
-                    loadRelatedItems(data.categories.id);
-                }
-            } catch (err) {
-                console.error("Error fetching product data:", err);
+    const settings = {
+        customPaging: function (i) {
+            return (
+                <a>
+                    <img
+                        src={images[i]?.url}
+                        alt={`Thumbnail ${i + 1}`}
+                    />
+                </a>
+            );
+        },
+        dots: true,
+        dotsClass: "slick-dots slick-thumb",
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+    const getProductData = async () => {
+        try {
+            const data = await fetchShopSingle(productId);
+            setProduct(data);
+            setImages(data.images);
+            if (data.categories?.id) {
+                loadRelatedItems(data.categories.id);
             }
-        };
+        } catch (err) {
+            console.error("Error fetching product data:", err);
+        }
+    };
+    useEffect(() => {
         getProductData();
     }, [productId]);
 
@@ -91,22 +122,22 @@ const ViewShopSingle = () => {
                                     <i className="far fa-play" />
                                 </a>
                                 <div className="flexslider-thumbnails">
-                                    <ul className="slides">
-                                        {product && product.image ? (
-                                            <li data-thumb={product.image} rel="adjustX:10, adjustY:">
-                                                <img src={product.image} alt={product.name} />
-                                            </li>
-                                        ) : (
-                                            <li>Loading...</li>
-                                        )}
-                                        {images && images.length > 0
-                                            ? images.map((img, index) => (
-                                                <li key={index} data-thumb={img.url}>
-                                                    {/* <img src={img.url} alt="#" /> */}
-                                                </li>
-                                            ))
-                                            : null}
-                                    </ul>
+                                    <div className="slider-container" >
+                                        <Slider {...settings}>
+                                            {images.length > 0 ? (
+                                                images.map((image, index) => (
+                                                    <div key={index}>
+                                                        <img
+                                                            src={image.url}
+                                                            alt={`Slide ${index + 1}`}
+                                                        />
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <div>Loading...</div>
+                                            )}
+                                        </Slider>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,19 +227,12 @@ const ViewShopSingle = () => {
                                             <li>
                                                 Stock: <span>{product.status}</span>
                                             </li>
-                                            {/* <li>
-                                                SKU: <span>656TYTR</span>
-                                            </li> */}
                                             <li>
                                                 Category: <span>{product.categories.name}</span>
                                             </li>
-                                            {/* <li>
-                                                Brand: <a href="#">Novak</a>
-                                            </li>
                                             <li>
-                                                Tags: <a href="#">Furniture</a>,<a href="#">Chair</a>,
-                                                <a href="#">Modern</a>,<a href="#">Shop</a>
-                                            </li> */}
+
+                                            </li>
                                         </ul>
                                     </div>
                                     <div className="shop-single-action">
@@ -600,16 +624,18 @@ const ViewShopSingle = () => {
                                 </div>
                             </div>
                             <div className="row g-4 item-2">
-
                                 {Array.isArray(relatedProducts) && relatedProducts.length > 0 ? (
                                     relatedProducts.map((e, i) => (
                                         <div className="col-md-6 col-lg-3" key={e.id || i}>
                                             <div className="product-item">
                                                 <div className="product-img">
                                                     <span className="type new">New</span>
-                                                    <a href="shop-single.html">
+                                                    <Link to={`/Product/${e.id}`}>
                                                         <img src={e.image} alt={e.name || "Product"} />
-                                                    </a>
+                                                    </Link>
+                                                    {/* <a href="shop-single.html">
+                                                        <img src={e.image} alt={e.name || "Product"} />
+                                                    </a> */}
                                                     <div className="product-action-wrap">
                                                         <div className="product-action">
                                                             <a

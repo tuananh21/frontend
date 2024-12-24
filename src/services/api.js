@@ -1,29 +1,10 @@
 import axios from "axios";
 import { getHeaders } from "../utils/HeaderUtils";
 
+
 // Config 
 const BASE_URL = "http://localhost:8080";
 const TOKEN = localStorage.getItem("token");
-
-export const getProducts = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/products`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching product", error);
-        throw error;
-    }
-};
-
-export const createUser = async (userData) => {
-    try {
-        const response = await axios.post(`${BASE_URL}/users`, userData);
-        return response.data;
-    } catch (error) {
-        console.error("Error creating user:", error);
-        throw error;
-    }
-};
 
 // api new
 export const login = async (data) => {
@@ -35,12 +16,12 @@ export const login = async (data) => {
     }
 };
 
-
-
 export const logout = async (navigate) => {
     try {
         await axios.post(`${BASE_URL}/user/logout`, {}, { headers: getHeaders(TOKEN) });
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
         navigate("/login");
     } catch (error) {
         console.error("Error during logout:", error);
@@ -60,15 +41,13 @@ export const fetchCartItems = async () => {
 };
 
 
-export const removeCartItem = (id) => {
-    console.log("Remove productCartId: ", id);
-    return axios
-        .delete(`${BASE_URL}/cart/del?id=${id}`, { headers: getHeaders(TOKEN) })
-        .then((res) => res.data)
-        .catch((err) => {
-            console.error("Error removing cart item:", err);
-            throw err;
-        });
+export const removeCartItem = async (data) => {
+    try {
+        const response = await axios.delete(`${BASE_URL}/cart/del`, { data })
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const updateCartItemQuantity = (productId, quantity) => {
@@ -81,25 +60,14 @@ export const updateCartItemQuantity = (productId, quantity) => {
         });
 };
 
-export const updateCartSummary = async () => {
-    try {
-        const response = await axios.put(`${BASE_URL}/summary/update`, {}, { headers: getHeaders(TOKEN) });
-        return response.data;
-    } catch (error) {
-        console.error("Error updating cart summary:", error);
-        throw error;
-    }
+export const getCartSummary = async (userId) => {
+    return await axios.post(`${BASE_URL}/summary/get/${userId}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        })
 };
 
-export const fetchCartSummary = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/summary/show`, { headers: getHeaders(TOKEN) });
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching cart summary:", error);
-        throw error;
-    }
-};
 
 
 export const fetchPopularItems = async () => {
@@ -123,9 +91,7 @@ export const registerUser = async (userData) => {
 
 export const fetchShopSingle = async (id) => {
     try {
-        const response = await axios.get(`${BASE_URL}/product/single/${id}`, {
-            headers: getHeaders(TOKEN),
-        });
+        const response = await axios.get(`${BASE_URL}/product/single/${id}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -144,10 +110,77 @@ export const addToCartApi = async (baseAddToCart) => {
 }
 
 export const fetchRelatedProducts = async (categoryId) => {
-    return await axios.get(`${BASE_URL}/product/related/${categoryId}`, {headers: getHeaders(TOKEN)} )
-    .then((res) => res.data)
-    .catch((error) => {
-        console.log("Get product related error!", error);
-        throw error;
-    })
+    return await axios.get(`${BASE_URL}/product/related/${categoryId}`)
+        .then((res) => res.data)
+        .catch((error) => {
+            console.log("Get product related error!", error);
+            throw error;
+        })
 }
+
+export const getUser = async (userId) => {
+    return await axios.get(`${BASE_URL}/order/getUser/${userId}`, { headers: getHeaders(TOKEN) })
+        .then((res) => res.data)
+        .catch((error) => {
+            throw error;
+        })
+}
+
+export const fetchPayments = async () => {
+    return await axios.get(`${BASE_URL}/order/payments`, { headers: getHeaders(TOKEN) })
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err
+        })
+}
+
+export const createOrderApi = async (baseToOrder, navigate) => {
+    try {
+        await axios.post(`${BASE_URL}/order/create`, (baseToOrder), { headers: getHeaders(TOKEN) })
+        navigate("/CheckoutComplete");
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const fetchProductPages = async (page) => {
+    return await axios.get(`${BASE_URL}/product/page/${page}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        })
+}
+
+export const fetchOrders = async () => {
+    return await axios.get(`${BASE_URL}/order/all`, { headers: getHeaders(TOKEN) })
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        })
+};
+
+export const uploadFIleImage = async (formData, userId) => {
+    return await axios.post(`${BASE_URL}/file/users/${userId}`, formData, { headers: getHeaders(TOKEN) })
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        })
+}
+
+export const getOrderDetailSummary = async (request) => {
+    return await axios
+        .post(`${BASE_URL}/summary/orderDetail`, { params: request })
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        })
+}
+
+export const fetchOrderDetails = async (request) => {
+    return await axios
+        .post(`${BASE_URL}/cart/orderDetails`, { params: request })
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        });
+};

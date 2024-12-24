@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
-import { fetchCartItems, fetchCartSummary, removeCartItem, updateCartItemQuantity, updateCartSummary } from "../../services/api";
+import { fetchCartItems, getCartSummary, removeCartItem, updateCartItemQuantity } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 
 const ViewCartProducts = () => {
-    const [productCarts, setCartItems] = useState([]);
     const navigate = useNavigate();
+    const [productCarts, setCartItems] = useState([]);
+    const [cartSummary, setCartSummary] = useState({
+        subtotal: 0,
+        discount: 0,
+        tax: 0,
+        total: 0,
+    });
 
-    // actions products cart
     const loadCartItems = () => {
+        if (!localStorage.getItem("token")) return;
+
         fetchCartItems()
             .then((products) => {
                 setCartItems(products);
-                console.log(productCarts);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("Error fetch cart items: ", err));
     };
 
     const handleQuantityChange = async (id, newQuantity) => {
@@ -26,15 +33,22 @@ const ViewCartProducts = () => {
                 prevCarts.map((item) =>
                     item.product.id === id ? { ...item, quantity: newQuantity } : item
                 ));
-                await loadCartSummary();
+            await loadCartSummary();
         } catch (error) {
             console.error("Error updating quantity : ", error);
         }
     };
 
-    const handleRemoveItem = async (id) => {
+    const handleRemoveItem = async (productId) => {
+        const userId = localStorage.getItem("userId");
+    
+        const base = {
+            productId: productId,
+            userId: userId
+        };
+
         try {
-            await removeCartItem(id);
+            await removeCartItem(base);
             await loadCartItems();
             await loadCartSummary();
         } catch (err) {
@@ -42,18 +56,12 @@ const ViewCartProducts = () => {
         }
     };
 
-    // actions summary cart
-    const [cartSummary, setCartSummary] = useState({
-        subtotal: 0,
-        discount: 0,
-        tax: 0,
-        total: 0,
-    });
 
     const loadCartSummary = async () => {
+        if (!localStorage.getItem("userId")) return;
+        const userId = localStorage.getItem("userId");
         try {
-            await updateCartSummary();
-            const data = await fetchCartSummary();
+            const data = await getCartSummary(userId);
             setCartSummary(data);
         } catch (error) {
             console.error("Error while loading cart summary:", error);
@@ -61,8 +69,12 @@ const ViewCartProducts = () => {
     };
 
     const handleCheckout = () => {
+        if (cartSummary.total === 0) {
+            message.error("Your cart is empty. Please add some items before proceeding to checkout.");
+            return;
+        }
         navigate("/checkout");
-    }
+    };
 
     useEffect(() => {
         loadCartItems();
@@ -77,7 +89,7 @@ const ViewCartProducts = () => {
                     <div className="table-responsive">
                         {/* View cart products */}
                         <table className="table">
-                            <thead>
+                            <thead style={{ paddingBottom: "1px solid" }}>
                                 <tr>
                                     <th>Image</th>
                                     <th>Product Name</th>
@@ -216,9 +228,9 @@ const ViewCartProducts = () => {
                         </li>
                     </ul>
                     <div className="text-end mt-40">
-                        <button 
-                        className="theme-btn"
-                        onClick={handleCheckout}>
+                        <button
+                            className="theme-btn"
+                            onClick={handleCheckout}>
                             Checkout Now
                             <i className="fas fa-arrow-right" />
                         </button>

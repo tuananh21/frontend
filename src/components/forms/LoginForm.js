@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
-const LoginForm = ({ handleLogin, errorMessage }) => {
+const LoginForm = ({ handleLogin, errorMessage}) => {
     const [user, setUser] = useState({
         email: '',
         password: ''

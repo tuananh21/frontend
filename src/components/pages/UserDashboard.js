@@ -10,14 +10,46 @@ import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import LogoImages from "../../exportImages/LogoImages";
-import { logout } from "../../services/api";
+import { fetchOrders, getUser, logout } from "../../services/api";
+import { useEffect, useState } from "react";
+import ViewUserAvatar from "../Lists/ViewUserAvatar";
 
 
 function UserDashboard() {
   const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
+  const [user, setUser] = useState({});
+
+  const setInfoUser = async () => {
+    const userId = localStorage.getItem("userId");
+    try {
+      const data = await getUser(userId);
+      setUser(data);
+    } catch (error) {
+      console.log("Get user error !", error);
+    }
+  }
+
+  const getOrders = async () => {
+    try {
+      const data = await fetchOrders();
+      setOrders(data);
+    } catch (error) {
+      console.log("Get orders error!", error);
+    }
+  };
+
   const handleLogout = async () => {
     await logout(navigate);
-};
+  };
+
+  useEffect(() => {
+    setInfoUser();
+    getOrders();
+  }, []);
+
+
+
   return (
     <>
       {/* header area */}
@@ -73,14 +105,8 @@ function UserDashboard() {
               <div className="col-lg-3">
                 <div className="sidebar">
                   <div className="sidebar-top">
-                    <div className="sidebar-profile-img">
-                      <img src={""} alt="" />
-                      <button type="button" className="profile-img-btn">
-                        <i className="far fa-camera" />
-                      </button>
-                      <input type="file" className="profile-img-file" />
-                    </div>
-                    <h5>Antoni Jonson</h5>
+                    <ViewUserAvatar />
+                    <h5>{user.username}</h5>
                     <p>
                       <Link
                         href="https://live.themewild.com/cdn-cgi/l/email-protection"
@@ -223,32 +249,35 @@ function UserDashboard() {
                               </tr>
                             </thead>
                             <tbody>
-                              
+
                               {/* order items  */}
-                              <tr>
-                                <td>
-                                  <span className="table-list-code">
-                                    #28VR5K59
-                                  </span>
-                                </td>
-                                <td>August 20, 2024</td>
-                                <td>$3,650</td>
-                                <td>
-                                  <span className="badge badge-info">
-                                    Pending
-                                  </span>
-                                </td>
-                                <td>
-                                  <Link
-                                    href="order-detail.html"
-                                    className="btn btn-outline-secondary btn-sm rounded-2"
-                                    data-tooltip="tooltip"
-                                    title="Details"
-                                  >
-                                    <i className="far fa-eye" />
-                                  </Link>
-                                </td>
-                              </tr>
+                              {orders && (
+                                orders.map((e, i) => (
+                                  <tr key={i}>
+                                    <td>
+                                      <span className="table-list-code">
+                                        #28VR5K{e.id}
+                                      </span>
+                                    </td>
+                                    <td>{e.date[0]} / {e.date[1]} / {e.date[2]}</td>
+                                    <td>${e.totalAmount}</td>
+                                    <td>
+                                      <span className="badge badge-info">
+                                        {e.status}
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <Link
+                                        to={`/OrderDetail/${e.id}`}
+                                        className="btn btn-outline-secondary btn-sm rounded-2"
+                                        data-tooltip="tooltip"
+                                        title="Details"
+                                      >
+                                        <i className="far fa-eye" />
+                                      </Link>
+                                    </td>
+                                  </tr>
+                                )))}
                               {/* order items end */}
                             </tbody>
                           </table>

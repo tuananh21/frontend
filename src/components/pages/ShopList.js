@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/all-fontawesome.min.css";
 import "../../assets/css/animate.min.css";
@@ -9,51 +9,76 @@ import "../../assets/css/nice-select.min.css";
 import "../../assets/css/style.css";
 import Header from "../Header";
 import Footer from "../Footer";
-
-import logo from "../../assets/img/logo/logo.png";
-
-import breadcrumb1 from "../../assets/img/breadcrumb/01.jpg";
-
-import product1 from "../../assets/img/product/01.png";
-import product2 from "../../assets/img/product/02.png";
-import product3 from "../../assets/img/product/03.png";
-import product4 from "../../assets/img/product/04.png";
-import product5 from "../../assets/img/product/05.png";
-import product6 from "../../assets/img/product/06.png";
-import product7 from "../../assets/img/product/07.png";
-import product8 from "../../assets/img/product/08.png";
-import product9 from "../../assets/img/product/09.png";
-import product10 from "../../assets/img/product/10.png";
-import product11 from "../../assets/img/product/11.png";
-import product12 from "../../assets/img/product/12.png";
-import product13 from "../../assets/img/product/13.png";
-import product14 from "../../assets/img/product/14.png";
-import product15 from "../../assets/img/product/15.png";
-import { useState } from "react";
+import LogoImages from "../../exportImages/LogoImages";
+import { useEffect, useState } from "react";
+import { addToCartApi, fetchProductPages } from "../../services/api";
+import { message } from "antd";
 
 function ShopList() {
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [products, setProducts] = useState([
-    { id: 1, name: "Simple Denim Chair", price: 100, image: product1 },
-    { id: 2, name: "Elegant Sofa", price: 200, image: product2 },
-    { id: 3, name: "Modern Table", price: 300, image: product3 },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const getProductData = async () => {
+    try {
+      const data = await fetchProductPages(currentPage);
+      setProducts(data);
+    } catch (error) {
+      console.log("Fetch product data error!", error);
+    }
+  }
+
+  const handlePageClick = async (page) => {
+    setCurrentPage(page);
+    const data = await fetchProductPages(page);
+    setProducts(data);
+  };
+
+  const handleAddToCart = async (e) => {
+    const request = {
+      productId: e.currentTarget.value
+    };
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await addToCartApi(request);
+      message.success(response);
+    } catch (error) {
+      message.error(error.message);
+    }
+    handleReload();
+  }
+
+  const [reload, setReload] = useState(false);
+
+  const handleReload = () => {
+    setReload((prev) => !prev);
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, [])
   return (
     <>
       {/* header area */}
-      <Header />
+      <Header key={reload} />
       {/* header area end */}
       <main className="main">
         {/* breadcrumb */}
         <div className="site-breadcrumb">
           <div
             className="site-breadcrumb-bg"
-            style={{ backgroundImage: `url(${breadcrumb1})` }}
+            style={{ backgroundImage: `url(${LogoImages.breadcrumbImage})` }}
           />
           <div className="container">
             <div className="site-breadcrumb-wrap">
@@ -326,7 +351,7 @@ function ShopList() {
                       </li>
                     </ul>
                   </div>
-                  
+
                   <div className="shop-widget-banner mt-30 mb-50">
                     <div
                       className="banner-img"
@@ -350,126 +375,123 @@ function ShopList() {
               <div className="col-lg-9">
                 <div className="shop-item-wrap item-list">
                   <div className="row g-4">
-                  {filteredProducts.map((product) => (
-                    <div className="col-md-12" key={product.id}>
-                      <div className="product-item">
-                        <div className="product-img">
-                          <Link href="shop-single.html">
-                            <img src={product.image} alt="" />
-                          </Link>
-                          <div className="product-action-wrap">
-                            <div className="product-action">
-                              <Link
-                                href="#"
-                                data-bs-toggle="modal"
-                                data-bs-target="#quickview"
-                                data-tooltip="tooltip"
-                                title="Quick View"
-                              >
-                                <i className="far fa-eye" />
-                              </Link>
-                              <Link
-                                href="#"
-                                data-tooltip="tooltip"
-                                title="Add To Wishlist"
-                              >
-                                <i className="far fa-heart" />
-                              </Link>
-                              <Link
-                                href="#"
-                                data-tooltip="tooltip"
-                                title="Add To Compare"
-                              >
-                                <i className="far fa-arrows-repeat" />
-                              </Link>
+                    {filteredProducts.map((product) => (
+                      <div className="col-md-12" key={product.id}>
+                        <div className="product-item">
+                          <div className="product-img">
+                            <Link href="shop-single.html">
+                              <img src={product.image} alt="" />
+                            </Link>
+                            <div className="product-action-wrap">
+                              <div className="product-action">
+                                <Link
+                                  href="#"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#quickview"
+                                  data-tooltip="tooltip"
+                                  title="Quick View"
+                                >
+                                  <i className="far fa-eye" />
+                                </Link>
+                                <Link
+                                  href="#"
+                                  data-tooltip="tooltip"
+                                  title="Add To Wishlist"
+                                >
+                                  <i className="far fa-heart" />
+                                </Link>
+                                <Link
+                                  href="#"
+                                  data-tooltip="tooltip"
+                                  title="Add To Compare"
+                                >
+                                  <i className="far fa-arrows-repeat" />
+                                </Link>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="product-content">
-                          <h3 className="product-title">
-                            <Link to="/product">{product.name}</Link>
-                          </h3>
-                          <div className="product-rate">
-                            <i className="fas fa-star" />
-                            <i className="fas fa-star" />
-                            <i className="fas fa-star" />
-                            <i className="fas fa-star" />
-                            <i className="far fa-star" />
-                          </div>
-                          <p>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry standard dummy text ever since the when an
-                            unknown printer took a galley of type and scrambled
-                            it to make a type specimen book remaining
-                            essentially unchanged.
-                          </p>
-                          <div className="product-bottom">
-                            <div className="product-price">
-                              <span>$100.00</span>
+                          <div className="product-content">
+                            <h3 className="product-title">
+                              <Link to="/product">{product.name}</Link>
+                            </h3>
+                            <div className="product-rate">
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                              <i className="fas fa-star" />
+                              <i className="far fa-star" />
                             </div>
-                            <button
-                              type="button"
-                              className="product-cart-btn"
-                              data-bs-placement="left"
-                              data-tooltip="tooltip"
-                              title="Add To Cart"
-                            >
-                              <i className="far fa-shopping-bag" />
-                            </button>
+                            <p>
+                              {product.description}
+                            </p>
+                            <div className="product-bottom">
+                              <div className="product-price">
+                                <span>${product.price}</span>
+                              </div>
+                              <button
+                                type="button"
+                                className="product-cart-btn"
+                                data-bs-placement="left"
+                                data-tooltip="tooltip"
+                                title="Add To Cart"
+                                value={product.id}
+                                onClick={handleAddToCart}
+                              >
+                                <i className="far fa-shopping-bag" />
+                              </button>
+
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                  {filteredProducts.length === 0 && (
-                  <div className="col-md-12">
-                    <p>No products found.</p>
-                  </div>
-                  )}
-                   
-                    
+                    ))}
+                    {filteredProducts.length === 0 && (
+                      <div className="col-md-12">
+                        <p>No products found.</p>
+                      </div>
+                    )}
+
+
                   </div>
                 </div>
                 {/* pagination */}
                 <div className="pagination-area mt-50">
                   <div aria-label="Page navigation example">
                     <ul className="pagination">
-                      <li className="page-item">
-                        <Link className="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">
-                            <i className="far fa-arrow-left" />
-                          </span>
-                        </Link>
+                      <li className={`page-item ${currentPage === 0 ? "disabled" : ""}`}>
+                        <button
+                          className="page-link"
+                          onClick={() => handlePageClick(currentPage - 1)}
+                          disabled={currentPage === 1}
+                        >
+                          <i className="far fa-arrow-left" />
+                        </button>
                       </li>
-                      <li className="page-item active">
-                        <Link className="page-link" href="#">
-                          1
-                        </Link>
-                      </li>
+                      {Array.from({ length: 10 }, (_, i) => i + 1).map((page) => (
+                        <li
+                          key={page}
+                          className={`page-item ${currentPage === page ? "active" : ""}`}
+                        >
+                          <button
+                            className="page-link"
+                            onClick={() => handlePageClick(page)}
+                          >
+                            {page}
+                          </button>
+                        </li>
+                      ))}
                       <li className="page-item">
-                        <Link className="page-link" href="#">
-                          2
-                        </Link>
-                      </li>
-                      <li className="page-item">
-                        <span className="page-link">...</span>
-                      </li>
-                      <li className="page-item">
-                        <Link className="page-link" href="#">
-                          10
-                        </Link>
-                      </li>
-                      <li className="page-item">
-                        <Link className="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">
-                            <i className="far fa-arrow-right" />
-                          </span>
-                        </Link>
+                        <button
+                          className="page-link"
+                          onClick={() => handlePageClick(currentPage + 1)}
+                        >
+                          <i className="far fa-arrow-right" />
+                        </button>
                       </li>
                     </ul>
                   </div>
                 </div>
+
                 {/* pagination end */}
               </div>
             </div>

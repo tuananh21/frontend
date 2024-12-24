@@ -30,11 +30,14 @@ function Login() {
     try {
       const data = await login(user);
       localStorage.setItem('token', data.token);
-      navigate('/'); 
+      localStorage.setItem("userId", data.user.id);
+      localStorage.setItem("userName", data.user.username);
+      navigate('/');
     } catch (error) {
-      setErrorMessage(error.message); 
+      setErrorMessage(error.message);
     }
   };
+
 
   return (
     <>

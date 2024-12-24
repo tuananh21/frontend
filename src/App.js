@@ -14,6 +14,8 @@ import UserProfile from "./components/pages/UserProfile";
 import Product from "./components/pages/Product";
 import Contact from "./components/pages/Contact";
 import Checkout from "./components/pages/Checkout";
+import CheckoutComplete from "./components/pages/CheckoutComplete";
+import OrderDetail from "./components/pages/OrderDetail";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/checkoutComplete" element={<CheckoutComplete />} />
+      <Route path="/OrderDetail/:orderId" element={<OrderDetail />} />
     </Routes>
   );
 }

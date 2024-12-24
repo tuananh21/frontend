@@ -76,13 +76,13 @@ function Header() {
             <Link className="navbar-brand" to="/">
               <img src={LogoImages.logo} alt="logo" />
             </Link>
-            <div className="mobile-menu-right">
+            <div className="mobile-menu-right" >
               <div className="mobile-menu-btn">
-                <Link href="wishlist.html" className="nav-right-link">
+                <Link href="wishlist.html" className="nav-right-link" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
                   <i className="far fa-heart" />
                   <span>2</span>
                 </Link>
-                <Link to="/cart" className="nav-right-link">
+                <Link to="/cart" className="nav-right-link" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
                   <i className="far fa-shopping-bag" />
                   <span>5</span>
                 </Link>
@@ -532,7 +532,7 @@ function Header() {
                       </div>
                     </div>
                   </li>
-                  <li className="nav-item dropdown" style={{ display: checkLoginStatus() ? 'block' : 'none' }}>
+                  <li className="nav-item dropdown">
                     <Link
                       className="nav-link"
                       to="/shoplist"
@@ -553,7 +553,7 @@ function Header() {
                     <li>
                       <Link href="wishlist.html" className="list-link">
                         <i className="far fa-heart" />
-                        <span>2</span>
+                        {/* <span>2</span> */}
                       </Link>
                     </li>
 
